@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/widgets/clear_glass.dart';
+import '../../../../core/theme/app_spacing.dart';
+import '../../../../core/widgets/glass_card.dart';
 
 class PostCard extends StatelessWidget {
   const PostCard({
@@ -18,32 +19,29 @@ class PostCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClearGlass(
-      child: Padding(
-        padding: const EdgeInsets.all(12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                const CircleAvatar(child: Icon(Icons.person)),
-                const SizedBox(width: 8),
-                Text(author, style: Theme.of(context).textTheme.titleMedium),
-                const Spacer(),
-                const Icon(Icons.thumb_up_alt_outlined, size: 18),
-                const SizedBox(width: 4),
-                Text('$likes'),
-              ],
-            ),
-            const SizedBox(height: 8),
-            Text(content),
-            const SizedBox(height: 8),
-            Wrap(
-              spacing: 8,
-              children: tags.map((t) => Chip(label: Text(t))).toList(),
-            ),
-          ],
-        ),
+    return GlassCard(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              const CircleAvatar(child: Icon(Icons.person)),
+              const SizedBox(width: AppSpacing.xs),
+              Text(author, style: Theme.of(context).textTheme.titleMedium),
+              const Spacer(),
+              const Icon(Icons.thumb_up_alt_outlined, size: 18),
+              const SizedBox(width: AppSpacing.xxs),
+              Text('$likes'),
+            ],
+          ),
+          const SizedBox(height: AppSpacing.xs),
+          Text(content),
+          const SizedBox(height: AppSpacing.xs),
+          Wrap(
+            spacing: AppSpacing.xs,
+            children: tags.map((t) => Chip(label: Text(t))).toList(),
+          ),
+        ],
       ),
     );
   }

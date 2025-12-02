@@ -1,25 +1,29 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/widgets/app_background.dart';
-import '../../../core/widgets/clear_glass.dart';
+import '../../../core/theme/app_spacing.dart';
+import '../../../core/utils/layout.dart';
+import '../../../core/widgets/app_button.dart';
+import '../../../core/widgets/app_page_scaffold.dart';
+import '../../../core/widgets/app_section.dart';
+import '../../../core/widgets/glass_surface.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Configuración'),
-      ),
-      body: AppBackground(
-        child: ListView(
-          padding: const EdgeInsets.all(16),
-          children: const [
-            ClearGlass(
-              padding: EdgeInsets.all(16),
-              child: _Section(
-                title: 'Apariencia',
+    final maxWidth = maxContentWidth(context);
+
+    return AppPageScaffold(
+      maxWidth: maxWidth,
+      child: Column(
+        children: [
+          GlassSurface(
+            maxWidth: maxWidth,
+            child: const AppSection(
+              title: 'Apariencia',
+              spacing: AppSpacing.sm,
+              child: Column(
                 children: [
                   _SettingTile(
                     icon: Icons.brightness_6_outlined,
@@ -34,11 +38,14 @@ class SettingsPage extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 12),
-            ClearGlass(
-              padding: EdgeInsets.all(16),
-              child: _Section(
-                title: 'Notificaciones',
+          ),
+          const SizedBox(height: AppSpacing.sm),
+          GlassSurface(
+            maxWidth: maxWidth,
+            child: const AppSection(
+              title: 'Notificaciones',
+              spacing: AppSpacing.sm,
+              child: Column(
                 children: [
                   _SettingTile(
                     icon: Icons.local_offer_outlined,
@@ -53,11 +60,18 @@ class SettingsPage extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 12),
-            ClearGlass(
-              padding: EdgeInsets.all(16),
-              child: _Section(
-                title: 'Cuenta',
+          ),
+          const SizedBox(height: AppSpacing.sm),
+          GlassSurface(
+            maxWidth: maxWidth,
+            child: AppSection(
+              title: 'Cuenta',
+              spacing: AppSpacing.sm,
+              action: const AppButton.secondary(
+                label: 'Editar perfil',
+                icon: Icons.edit_outlined,
+              ),
+              child: const Column(
                 children: [
                   _SettingTile(
                     icon: Icons.person_outline,
@@ -72,34 +86,9 @@ class SettingsPage extends StatelessWidget {
                 ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
-    );
-  }
-}
-
-class _Section extends StatelessWidget {
-  const _Section({required this.title, required this.children});
-
-  final String title;
-  final List<Widget> children;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style: Theme.of(context)
-              .textTheme
-              .titleMedium
-              ?.copyWith(fontWeight: FontWeight.w700),
-        ),
-        const SizedBox(height: 12),
-        ...children,
-      ],
     );
   }
 }

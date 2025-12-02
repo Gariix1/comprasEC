@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../theme/app_colors.dart';
+
 class AppBackground extends StatelessWidget {
   const AppBackground({super.key, required this.child});
 
@@ -9,8 +11,8 @@ class AppBackground extends StatelessWidget {
   Widget build(BuildContext context) {
     final brightness = Theme.of(context).brightness;
     final colors = brightness == Brightness.dark
-        ? const [Color(0xFF0E1A14), Color(0xFF102820)]
-        : const [Color(0xFFF7FBF8), Color(0xFFE3F3E8)];
+        ? AppColors.gradientDark
+        : AppColors.gradientLight;
 
     return Container(
       decoration: BoxDecoration(

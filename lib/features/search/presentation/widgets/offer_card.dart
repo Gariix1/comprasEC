@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/widgets/clear_glass.dart';
+import '../../../../core/widgets/glass_card.dart';
 
 class OfferCard extends StatelessWidget {
   const OfferCard({
@@ -16,7 +16,7 @@ class OfferCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClearGlass(
+    return GlassCard(
       child: ListTile(
         leading: const CircleAvatar(child: Icon(Icons.local_mall)),
         title: Text(title),
