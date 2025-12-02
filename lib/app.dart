@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+import 'features/community/presentation/community_page.dart';
+import 'features/search/presentation/search_page.dart';
+import 'features/tracking/presentation/tracking_page.dart';
+
 class ComprasEcApp extends StatelessWidget {
   const ComprasEcApp({super.key});
 
@@ -11,19 +15,57 @@ class ComprasEcApp extends StatelessWidget {
         useMaterial3: true,
         colorSchemeSeed: const Color(0xFF0B7C3E),
       ),
-      home: const _PlaceholderHome(),
+      home: const MainNavigationPage(),
     );
   }
 }
 
-class _PlaceholderHome extends StatelessWidget {
-  const _PlaceholderHome();
+class MainNavigationPage extends StatefulWidget {
+  const MainNavigationPage({super.key});
+
+  @override
+  State<MainNavigationPage> createState() => _MainNavigationPageState();
+}
+
+class _MainNavigationPageState extends State<MainNavigationPage> {
+  int _currentIndex = 0;
+
+  final _pages = const [
+    SearchPage(),
+    TrackingPage(),
+    CommunityPage(),
+  ];
+
+  void _onTabSelected(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Comparador de precios y tracker - MVP'),
+    return Scaffold(
+      body: IndexedStack(
+        index: _currentIndex,
+        children: _pages,
+      ),
+      bottomNavigationBar: NavigationBar(
+        selectedIndex: _currentIndex,
+        onDestinationSelected: _onTabSelected,
+        destinations: const [
+          NavigationDestination(
+            icon: Icon(Icons.search),
+            label: 'Buscar',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.local_shipping_outlined),
+            label: 'Tracker',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.forum_outlined),
+            label: 'Comunidad',
+          ),
+        ],
       ),
     );
   }
