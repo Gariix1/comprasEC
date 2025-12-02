@@ -99,16 +99,45 @@ permitido)
 
 ## 📐 **Arquitectura Inicial**
 
-    /project
-    |-- /lib
-    |   |-- main.dart
-    |   |-- /modules
-    |   |   |-- search/
-    |   |   |-- tracking/
-    |   |   |-- community/
-    |-- /assets
-    |-- pubspec.yaml
-    |-- README.md
+```text
+/project
+|-- lib/
+|   |-- main.dart
+|   |-- app.dart
+|   |-- core/
+|   |   |-- config/
+|   |   |-- routing/
+|   |   |-- theme/
+|   |   |-- utils/
+|   |   |-- widgets/
+|   |-- features/
+|   |   |-- search/
+|   |   |   |-- data/
+|   |   |   |-- domain/
+|   |   |   |-- presentation/
+|   |   |-- tracking/
+|   |   |   |-- data/
+|   |   |   |-- domain/
+|   |   |   |-- presentation/
+|   |   |-- community/
+|   |   |   |-- data/
+|   |   |   |-- domain/
+|   |   |   |-- presentation/
+|-- assets/
+|   |-- icons/
+|   |-- images/
+|   |-- translations/
+|-- test/
+|   |-- features/
+|   |-- widgets/
+|-- pubspec.yaml
+|-- README.md
+```
+
+- `features`: feature-first con capas `data`/`domain`/`presentation` para mantener cada módulo aislado.
+- `core`: configuración (tema, routing, servicios compartidos), utilidades y widgets reutilizables.
+- `assets`: recursos organizados para UI (íconos, imágenes, traducciones).
+- `test`: espejo de `lib` para mantener pruebas por feature y widgets.
 
 ------------------------------------------------------------------------
 
