@@ -1,5 +1,7 @@
 import 'package:flutter/widgets.dart';
 
+import '../theme/app_spacing.dart';
+
 enum DeviceSize { mobile, tablet, desktop }
 
 DeviceSize deviceSize(BuildContext context) {
@@ -44,4 +46,20 @@ int gridColumns(BuildContext context, {int mobile = 1, int tablet = 2, int deskt
     case DeviceSize.desktop:
       return desktop;
   }
+}
+
+SliverGridDelegateWithFixedCrossAxisCount cardGridDelegate(
+  BuildContext context, {
+  double aspectRatio = 1.6,
+  double spacing = AppSpacing.sm,
+  int mobile = 1,
+  int tablet = 2,
+  int desktop = 3,
+}) {
+  return SliverGridDelegateWithFixedCrossAxisCount(
+    crossAxisCount: gridColumns(context, mobile: mobile, tablet: tablet, desktop: desktop),
+    mainAxisSpacing: spacing,
+    crossAxisSpacing: spacing,
+    childAspectRatio: aspectRatio,
+  );
 }

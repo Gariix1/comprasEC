@@ -19,19 +19,37 @@ class AppSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Row(
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final isCompact = constraints.maxWidth < 360 && action != null;
+
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            SectionTitle(title),
-            const Spacer(),
-            if (action != null) action!,
+            if (isCompact) ...[
+              SectionTitle(title),
+              const SizedBox(height: AppSpacing.xs),
+              Align(alignment: Alignment.centerRight, child: action),
+            ] else ...[
+              Row(
+                children: [
+                  SectionTitle(title),
+                  const Spacer(),
+                  if (action != null)
+                    Flexible(
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: action!,
+                      ),
+                    ),
+                ],
+              ),
+            ],
+            SizedBox(height: spacing),
+            child,
           ],
-        ),
-        SizedBox(height: spacing),
-        child,
-      ],
+        );
+      },
     );
   }
 }

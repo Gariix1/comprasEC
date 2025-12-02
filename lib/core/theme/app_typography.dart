@@ -5,10 +5,10 @@ class AppTypography {
   const AppTypography._();
 
   static TextTheme textTheme(ColorScheme scheme) {
-    final base = GoogleFonts.spaceGroteskTextTheme();
+    final base = GoogleFonts.robotoTextTheme();
     return base.copyWith(
-          titleMedium: base.titleMedium?.copyWith(fontWeight: FontWeight.w700),
-          titleLarge: base.titleLarge?.copyWith(fontWeight: FontWeight.w700),
-        );
+      titleMedium: base.titleMedium?.copyWith(fontWeight: FontWeight.w700),
+      titleLarge: base.titleLarge?.copyWith(fontWeight: FontWeight.w700),
+    );
   }
 }

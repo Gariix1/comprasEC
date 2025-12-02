@@ -40,7 +40,9 @@ class AppButton extends StatelessWidget {
         return FilledButton(
           onPressed: onPressed,
           style: FilledButton.styleFrom(
-            minimumSize: const Size.fromHeight(48),
+            minimumSize: const Size(0, 44),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
           ),
           child: child,
@@ -49,7 +51,9 @@ class AppButton extends StatelessWidget {
         return OutlinedButton(
           onPressed: onPressed,
           style: OutlinedButton.styleFrom(
-            minimumSize: const Size.fromHeight(48),
+            minimumSize: const Size(0, 44),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
             side: BorderSide(color: scheme.primary.withOpacity(0.6)),
           ),

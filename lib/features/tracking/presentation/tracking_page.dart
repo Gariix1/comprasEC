@@ -7,6 +7,7 @@ import '../../../core/widgets/app_page_scaffold.dart';
 import '../../../core/widgets/app_section.dart';
 import '../../../core/widgets/glass_surface.dart';
 import '../../../core/widgets/glass_text_field.dart';
+import '../data/mock_tracking.dart';
 import 'widgets/tracking_status_tile.dart';
 
 class TrackingPage extends StatelessWidget {
@@ -30,26 +31,22 @@ class TrackingPage extends StatelessWidget {
           const SizedBox(height: AppSpacing.md),
           GlassSurface(
             maxWidth: maxWidth,
-            child: const AppSection(
+            child: AppSection(
               title: 'Linea de tiempo',
               spacing: AppSpacing.sm,
               child: Column(
                 children: [
-                  TrackingStatusTile(
-                    icon: Icons.check_circle,
-                    iconColor: Colors.green,
-                    title: 'En transito',
-                    subtitle: 'Salida del pais de origen',
-                    trailing: 'Hoy',
-                  ),
-                  SizedBox(height: AppSpacing.sm),
-                  TrackingStatusTile(
-                    icon: Icons.access_time_filled,
-                    iconColor: Colors.orange,
-                    title: 'En Aduana Ecuador',
-                    subtitle: 'Pendiente revision',
-                    trailing: 'Estimado: 3-5 dias',
-                  ),
+                  for (var i = 0; i < mockTrackingEvents.length; i++) ...[
+                    TrackingStatusTile(
+                      icon: mockTrackingEvents[i].icon,
+                      iconColor: mockTrackingEvents[i].iconColor,
+                      title: mockTrackingEvents[i].title,
+                      subtitle: mockTrackingEvents[i].subtitle,
+                      trailing: mockTrackingEvents[i].trailing,
+                    ),
+                    if (i != mockTrackingEvents.length - 1)
+                      const SizedBox(height: AppSpacing.sm),
+                  ],
                 ],
               ),
             ),

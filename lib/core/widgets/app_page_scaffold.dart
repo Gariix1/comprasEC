@@ -12,6 +12,7 @@ class AppPageScaffold extends StatelessWidget {
     this.physics,
     this.alignment = Alignment.topCenter,
     this.padding,
+    this.scrollable = true,
   });
 
   /// Main content widget.
@@ -29,6 +30,9 @@ class AppPageScaffold extends StatelessWidget {
   /// Extra padding (default uses AppSpacing and accounts for bottom inset).
   final EdgeInsets? padding;
 
+  /// If false, child is rendered without extra scroll (useful for custom scroll views).
+  final bool scrollable;
+
   @override
   Widget build(BuildContext context) {
     final viewPadding = MediaQuery.of(context).padding;
@@ -44,6 +48,21 @@ class AppPageScaffold extends StatelessWidget {
       child: SafeArea(
         child: LayoutBuilder(
           builder: (context, constraints) {
+            final widthConstraint = maxWidth ?? constraints.maxWidth;
+
+            if (!scrollable) {
+              return Padding(
+                padding: effectivePadding,
+                child: Align(
+                  alignment: alignment,
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(maxWidth: widthConstraint),
+                    child: child,
+                  ),
+                ),
+              );
+            }
+
             return SingleChildScrollView(
               physics: physics,
               padding: effectivePadding,
@@ -51,7 +70,7 @@ class AppPageScaffold extends StatelessWidget {
                 alignment: alignment,
                 child: ConstrainedBox(
                   constraints: BoxConstraints(
-                    maxWidth: maxWidth ?? constraints.maxWidth,
+                    maxWidth: widthConstraint,
                   ),
                   child: child,
                 ),

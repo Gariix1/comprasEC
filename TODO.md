@@ -18,5 +18,12 @@
 ## Estandarizar UI
  - [x] Reemplazar `SizedBox` numéricos por constantes de `AppSpacing`.
  - [x] Usar `AppButton` para CTAs y acciones comunes.
- - [x] Tipografía: considerar tamaños levemente mayores en tablet/desktop.
- - [x] Navegación: evaluar `NavigationRail` en desktop/tablet grande según breakpoint.
+- [x] Tipografía: considerar tamaños levemente mayores en tablet/desktop.
+- [x] Navegación: evaluar `NavigationRail` en desktop/tablet grande según breakpoint.
+
+## Limpieza y reutilización
+- [x] Centralizar datos mock en fixtures/modelos (Search/Tracker/Comunidad) para evitar strings duplicados.
+- [x] Comunidad: usar `CustomScrollView + SliverList` con un solo `AppSection` para el feed, evitando secciones vacías por item.
+- [x] Crear `SectionCard` que combine `GlassSurface + AppSection` para reducir composición repetida.
+- [x] Definir barra de acciones reutilizable (CTAs, filtros/alertas) usando `AppButton` cuando haya múltiples acciones en una sección.
+- [x] Centralizar configuración de grillas (columnas y `childAspectRatio`) en helper si se repite entre Search/Comunidad.
