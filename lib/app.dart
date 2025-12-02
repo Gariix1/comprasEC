@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
+import 'core/theme/app_theme.dart';
 import 'features/community/presentation/community_page.dart';
 import 'features/search/presentation/search_page.dart';
+import 'features/settings/presentation/settings_page.dart';
 import 'features/tracking/presentation/tracking_page.dart';
 
 class ComprasEcApp extends StatelessWidget {
@@ -11,10 +13,10 @@ class ComprasEcApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Compras EC',
-      theme: ThemeData(
-        useMaterial3: true,
-        colorSchemeSeed: const Color(0xFF0B7C3E),
-      ),
+      debugShowCheckedModeBanner: false,
+      theme: AppTheme.light(),
+      darkTheme: AppTheme.dark(),
+      themeMode: ThemeMode.system,
       home: const MainNavigationPage(),
     );
   }
@@ -34,6 +36,7 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
     SearchPage(),
     TrackingPage(),
     CommunityPage(),
+    SettingsPage(),
   ];
 
   void _onTabSelected(int index) {
@@ -64,6 +67,10 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
           NavigationDestination(
             icon: Icon(Icons.forum_outlined),
             label: 'Comunidad',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.settings_outlined),
+            label: 'Config',
           ),
         ],
       ),

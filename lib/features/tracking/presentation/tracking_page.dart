@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/widgets/app_background.dart';
+import '../../../core/widgets/glass_text_field.dart';
+import '../../../core/widgets/section_title.dart';
+import 'widgets/tracking_status_tile.dart';
+
 class TrackingPage extends StatelessWidget {
   const TrackingPage({super.key});
 
@@ -9,43 +14,36 @@ class TrackingPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Tracker'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            const TextField(
-              decoration: InputDecoration(
-                labelText: 'Numero de seguimiento',
-                hintText: 'Ej: LB123456789CN',
-                prefixIcon: Icon(Icons.local_shipping),
+      body: AppBackground(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              const GlassTextField(
+                label: 'Numero de seguimiento',
+                hint: 'Ej: LB123456789CN',
+                icon: Icons.local_shipping,
               ),
-            ),
-            const SizedBox(height: 16),
-            Card(
-              child: ListTile(
-                leading: const Icon(Icons.check_circle, color: Colors.green),
-                title: const Text('En transito'),
-                subtitle: const Text('Salida del pais de origen'),
-                trailing: Text(
-                  'Hoy',
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
+              const SizedBox(height: 16),
+              const SectionTitle('Linea de tiempo'),
+              const SizedBox(height: 12),
+              const TrackingStatusTile(
+                icon: Icons.check_circle,
+                iconColor: Colors.green,
+                title: 'En transito',
+                subtitle: 'Salida del pais de origen',
+                trailing: 'Hoy',
               ),
-            ),
-            const SizedBox(height: 8),
-            Card(
-              child: ListTile(
-                leading:
-                    const Icon(Icons.access_time_filled, color: Colors.orange),
-                title: const Text('En Aduana Ecuador'),
-                subtitle: const Text('Pendiente revision'),
-                trailing: Text(
-                  'Estimado: 3-5 dias',
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
+              const SizedBox(height: 12),
+              const TrackingStatusTile(
+                icon: Icons.access_time_filled,
+                iconColor: Colors.orange,
+                title: 'En Aduana Ecuador',
+                subtitle: 'Pendiente revision',
+                trailing: 'Estimado: 3-5 dias',
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
