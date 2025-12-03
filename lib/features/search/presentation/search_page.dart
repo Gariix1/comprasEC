@@ -53,17 +53,15 @@ class _SearchPageState extends ConsumerState<SearchPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Card(
-                  elevation: 3,
-                  child: Padding(
-                    padding: const EdgeInsets.all(AppSpacing.sm),
-                    child: TextField(
-                      controller: _controller,
-                      decoration: InputDecoration(
-                        labelText: l10n.searchPlaceholder,
-                        hintText: l10n.searchHint,
-                        prefixIcon: const Icon(Icons.search),
-                      ),
+                TextField(
+                  controller: _controller,
+                  decoration: InputDecoration(
+                    labelText: l10n.searchPlaceholder,
+                    hintText: l10n.searchHint,
+                    prefixIcon: const Icon(Icons.search),
+                    filled: true,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
                     ),
                   ),
                 ),
@@ -73,12 +71,12 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                   runSpacing: AppSpacing.xs,
                   children: [
                     FilterChip(
-                      label: const Text('Electrónica'),
+                      label: Text(l10n.searchCategoryElectronics),
                       selected: false,
                       onSelected: (_) {},
                     ),
                     FilterChip(
-                      label: const Text('Hogar'),
+                      label: Text(l10n.searchCategoryHome),
                       selected: false,
                       onSelected: (_) {},
                     ),

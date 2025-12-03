@@ -24,6 +24,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get navSettings => 'Config';
 
   @override
+  String get navServices => 'Servicios';
+
+  @override
   String get searchPlaceholder => 'Buscar producto';
 
   @override
@@ -51,6 +54,12 @@ class AppLocalizationsEs extends AppLocalizations {
   String get trackingRefresh => 'Actualizar estado';
 
   @override
+  String get searchCategoryElectronics => 'Electrónica';
+
+  @override
+  String get searchCategoryHome => 'Hogar';
+
+  @override
   String get communityTitle => 'Comunidad';
 
   @override
@@ -64,6 +73,24 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get settingsThemeSubtitle => 'Claro / Oscuro / Sistema';
+
+  @override
+  String get settingsThemeLight => 'Claro';
+
+  @override
+  String get settingsThemeDark => 'Oscuro';
+
+  @override
+  String get settingsLanguage => 'Idioma';
+
+  @override
+  String get settingsLanguageSystem => 'Predeterminado del sistema';
+
+  @override
+  String get settingsLanguageSpanish => 'Español';
+
+  @override
+  String get settingsLanguageEnglish => 'Inglés';
 
   @override
   String get settingsAccent => 'Acento de color';
@@ -96,13 +123,50 @@ class AppLocalizationsEs extends AppLocalizations {
   String get settingsProfileSubtitle => 'Datos y preferencias de la cuenta';
 
   @override
+  String get settingsUserName => 'Usuario';
+
+  @override
+  String get settingsLinkedGoogle => 'Google vinculado';
+
+  @override
+  String get settingsLinkedApple => 'Apple no vinculado';
+
+  @override
+  String get settingsConnectAccounts => 'Conectar cuentas';
+
+  @override
+  String get settingsConnectAccountsSubtitle =>
+      'Vincula Google o Apple ID para sincronizar datos';
+
+  @override
+  String get settingsConnectGoogle => 'Google';
+
+  @override
+  String get settingsConnectApple => 'Apple ID';
+
+  @override
   String get settingsPrivacy => 'Privacidad';
 
   @override
   String get settingsPrivacySubtitle => 'Control de datos y actividad';
 
   @override
+  String get settingsDataActivityTitle => 'Datos y actividad';
+
+  @override
+  String get settingsDataActivitySubtitle =>
+      'Controla uso de datos, registros de actividad y permisos aquí.';
+
+  @override
   String get settingsEditProfile => 'Editar perfil';
+
+  @override
+  String get servicesTitle => 'Servicios conectados';
+
+  @override
+  String servicesManage(Object serviceName) {
+    return 'Conecta o gestiona tu cuenta de $serviceName';
+  }
 
   @override
   String get errorGeneric => 'Ocurrió un error al cargar';

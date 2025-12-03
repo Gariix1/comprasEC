@@ -136,13 +136,13 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
                   NavigationRailDestination(
                     icon: Semantics(
                       container: true,
-                      label: 'Servicios conectados',
+                      label: l10n?.navServices ?? 'Servicios',
                       child: BouncyIcon(
                         icon: Icons.link_outlined,
                         isSelected: currentIndex == 1,
                       ),
                     ),
-                    label: const Text('Servicios'),
+                    label: Text(l10n?.navServices ?? 'Servicios'),
                   ),
                   NavigationRailDestination(
                     icon: Semantics(
@@ -161,7 +161,7 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
                       label: l10n?.navCommunity ?? 'Comunidad',
                       child: BouncyIcon(
                         icon: Icons.forum_outlined,
-                        isSelected: currentIndex == 2,
+                        isSelected: currentIndex == 3,
                       ),
                     ),
                     label: Text(l10n?.navCommunity ?? 'Comunidad'),
@@ -172,7 +172,7 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
                       label: l10n?.navSettings ?? 'Config',
                       child: BouncyIcon(
                         icon: Icons.settings_outlined,
-                        isSelected: currentIndex == 3,
+                        isSelected: currentIndex == 4,
                       ),
                     ),
                     label: Text(l10n?.navSettings ?? 'Config'),
@@ -211,13 +211,13 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
             NavigationDestination(
               icon: Semantics(
                 container: true,
-                label: 'Servicios conectados',
+                label: l10n?.navServices ?? 'Servicios',
                 child: BouncyIcon(
                   icon: Icons.link_outlined,
                   isSelected: currentIndex == 1,
                 ),
               ),
-              label: 'Servicios',
+              label: l10n?.navServices ?? 'Servicios',
             ),
             NavigationDestination(
               icon: Semantics(
@@ -236,7 +236,7 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
                 label: l10n?.navCommunity ?? 'Comunidad',
                 child: BouncyIcon(
                   icon: Icons.forum_outlined,
-                  isSelected: currentIndex == 2,
+                  isSelected: currentIndex == 3,
                 ),
               ),
               label: l10n?.navCommunity ?? 'Comunidad',
@@ -247,7 +247,7 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
                 label: l10n?.navSettings ?? 'Config',
                 child: BouncyIcon(
                   icon: Icons.settings_outlined,
-                  isSelected: currentIndex == 3,
+                  isSelected: currentIndex == 4,
                 ),
               ),
               label: l10n?.navSettings ?? 'Config',

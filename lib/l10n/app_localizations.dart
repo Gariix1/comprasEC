@@ -128,6 +128,12 @@ abstract class AppLocalizations {
   /// **'Config'**
   String get navSettings;
 
+  /// No description provided for @navServices.
+  ///
+  /// In es, this message translates to:
+  /// **'Servicios'**
+  String get navServices;
+
   /// No description provided for @searchPlaceholder.
   ///
   /// In es, this message translates to:
@@ -182,6 +188,18 @@ abstract class AppLocalizations {
   /// **'Actualizar estado'**
   String get trackingRefresh;
 
+  /// No description provided for @searchCategoryElectronics.
+  ///
+  /// In es, this message translates to:
+  /// **'Electrónica'**
+  String get searchCategoryElectronics;
+
+  /// No description provided for @searchCategoryHome.
+  ///
+  /// In es, this message translates to:
+  /// **'Hogar'**
+  String get searchCategoryHome;
+
   /// No description provided for @communityTitle.
   ///
   /// In es, this message translates to:
@@ -211,6 +229,42 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Claro / Oscuro / Sistema'**
   String get settingsThemeSubtitle;
+
+  /// No description provided for @settingsThemeLight.
+  ///
+  /// In es, this message translates to:
+  /// **'Claro'**
+  String get settingsThemeLight;
+
+  /// No description provided for @settingsThemeDark.
+  ///
+  /// In es, this message translates to:
+  /// **'Oscuro'**
+  String get settingsThemeDark;
+
+  /// No description provided for @settingsLanguage.
+  ///
+  /// In es, this message translates to:
+  /// **'Idioma'**
+  String get settingsLanguage;
+
+  /// No description provided for @settingsLanguageSystem.
+  ///
+  /// In es, this message translates to:
+  /// **'Predeterminado del sistema'**
+  String get settingsLanguageSystem;
+
+  /// No description provided for @settingsLanguageSpanish.
+  ///
+  /// In es, this message translates to:
+  /// **'Español'**
+  String get settingsLanguageSpanish;
+
+  /// No description provided for @settingsLanguageEnglish.
+  ///
+  /// In es, this message translates to:
+  /// **'Inglés'**
+  String get settingsLanguageEnglish;
 
   /// No description provided for @settingsAccent.
   ///
@@ -272,6 +326,48 @@ abstract class AppLocalizations {
   /// **'Datos y preferencias de la cuenta'**
   String get settingsProfileSubtitle;
 
+  /// No description provided for @settingsUserName.
+  ///
+  /// In es, this message translates to:
+  /// **'Usuario'**
+  String get settingsUserName;
+
+  /// No description provided for @settingsLinkedGoogle.
+  ///
+  /// In es, this message translates to:
+  /// **'Google vinculado'**
+  String get settingsLinkedGoogle;
+
+  /// No description provided for @settingsLinkedApple.
+  ///
+  /// In es, this message translates to:
+  /// **'Apple no vinculado'**
+  String get settingsLinkedApple;
+
+  /// No description provided for @settingsConnectAccounts.
+  ///
+  /// In es, this message translates to:
+  /// **'Conectar cuentas'**
+  String get settingsConnectAccounts;
+
+  /// No description provided for @settingsConnectAccountsSubtitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Vincula Google o Apple ID para sincronizar datos'**
+  String get settingsConnectAccountsSubtitle;
+
+  /// No description provided for @settingsConnectGoogle.
+  ///
+  /// In es, this message translates to:
+  /// **'Google'**
+  String get settingsConnectGoogle;
+
+  /// No description provided for @settingsConnectApple.
+  ///
+  /// In es, this message translates to:
+  /// **'Apple ID'**
+  String get settingsConnectApple;
+
   /// No description provided for @settingsPrivacy.
   ///
   /// In es, this message translates to:
@@ -284,11 +380,35 @@ abstract class AppLocalizations {
   /// **'Control de datos y actividad'**
   String get settingsPrivacySubtitle;
 
+  /// No description provided for @settingsDataActivityTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Datos y actividad'**
+  String get settingsDataActivityTitle;
+
+  /// No description provided for @settingsDataActivitySubtitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Controla uso de datos, registros de actividad y permisos aquí.'**
+  String get settingsDataActivitySubtitle;
+
   /// No description provided for @settingsEditProfile.
   ///
   /// In es, this message translates to:
   /// **'Editar perfil'**
   String get settingsEditProfile;
+
+  /// No description provided for @servicesTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Servicios conectados'**
+  String get servicesTitle;
+
+  /// No description provided for @servicesManage.
+  ///
+  /// In es, this message translates to:
+  /// **'Conecta o gestiona tu cuenta de {serviceName}'**
+  String servicesManage(Object serviceName);
 
   /// No description provided for @errorGeneric.
   ///

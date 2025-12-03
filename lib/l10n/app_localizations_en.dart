@@ -24,6 +24,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get navSettings => 'Settings';
 
   @override
+  String get navServices => 'Services';
+
+  @override
   String get searchPlaceholder => 'Search product';
 
   @override
@@ -51,6 +54,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get trackingRefresh => 'Refresh status';
 
   @override
+  String get searchCategoryElectronics => 'Electronics';
+
+  @override
+  String get searchCategoryHome => 'Home';
+
+  @override
   String get communityTitle => 'Community';
 
   @override
@@ -64,6 +73,24 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settingsThemeSubtitle => 'Light / Dark / System';
+
+  @override
+  String get settingsThemeLight => 'Light';
+
+  @override
+  String get settingsThemeDark => 'Dark';
+
+  @override
+  String get settingsLanguage => 'Language';
+
+  @override
+  String get settingsLanguageSystem => 'System default';
+
+  @override
+  String get settingsLanguageSpanish => 'Spanish';
+
+  @override
+  String get settingsLanguageEnglish => 'English';
 
   @override
   String get settingsAccent => 'Accent color';
@@ -96,13 +123,50 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsProfileSubtitle => 'Account data and preferences';
 
   @override
+  String get settingsUserName => 'User';
+
+  @override
+  String get settingsLinkedGoogle => 'Google linked';
+
+  @override
+  String get settingsLinkedApple => 'Apple not linked';
+
+  @override
+  String get settingsConnectAccounts => 'Link accounts';
+
+  @override
+  String get settingsConnectAccountsSubtitle =>
+      'Link Google or Apple ID to sync data';
+
+  @override
+  String get settingsConnectGoogle => 'Google';
+
+  @override
+  String get settingsConnectApple => 'Apple ID';
+
+  @override
   String get settingsPrivacy => 'Privacy';
 
   @override
   String get settingsPrivacySubtitle => 'Data and activity control';
 
   @override
+  String get settingsDataActivityTitle => 'Data & activity';
+
+  @override
+  String get settingsDataActivitySubtitle =>
+      'Control data usage, activity logs and permissions here.';
+
+  @override
   String get settingsEditProfile => 'Edit profile';
+
+  @override
+  String get servicesTitle => 'Connected services';
+
+  @override
+  String servicesManage(Object serviceName) {
+    return 'Connect or manage your $serviceName account';
+  }
 
   @override
   String get errorGeneric => 'An error occurred while loading';

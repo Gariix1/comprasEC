@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:compras_ec/l10n/app_localizations.dart';
 import '../../../core/widgets/app_modal.dart';
 
 class ProfileSheet extends StatelessWidget {
@@ -7,7 +8,7 @@ class ProfileSheet extends StatelessWidget {
   static Future<void> show(BuildContext context) {
     return showAppContentSheet(
       context: context,
-      title: 'Profile',
+      title: AppLocalizations.of(context)!.settingsProfile,
       child: const _ProfileBody(),
     );
   }
@@ -24,6 +25,7 @@ class _ProfileBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context)!;
     return Card(
       elevation: 2,
       child: Padding(
@@ -31,14 +33,14 @@ class _ProfileBody extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Account data', style: theme.textTheme.titleMedium),
+            Text(l10n.settingsProfileSubtitle, style: theme.textTheme.titleMedium),
             const SizedBox(height: 8),
             Text(
-              'Manage your name, email and preferences here.',
+              l10n.settingsConnectAccountsSubtitle,
               style: theme.textTheme.bodyMedium,
             ),
             const SizedBox(height: 12),
-            Text('Conectar cuentas', style: theme.textTheme.titleMedium),
+            Text(l10n.settingsConnectAccounts, style: theme.textTheme.titleMedium),
             const SizedBox(height: 8),
             Wrap(
               spacing: 8,
@@ -46,14 +48,14 @@ class _ProfileBody extends StatelessWidget {
               children: [
                 ElevatedButton.icon(
                   icon: const Icon(Icons.g_mobiledata, size: 18),
-                  label: const Text('Google'),
+                  label: Text(l10n.settingsConnectGoogle),
                   onPressed: () {
                     // Acción de vincular Google.
                   },
                 ),
                 ElevatedButton.icon(
                   icon: const Icon(Icons.apple, size: 18),
-                  label: const Text('Apple ID'),
+                  label: Text(l10n.settingsConnectApple),
                   onPressed: () {
                     // Acción de vincular Apple.
                   },

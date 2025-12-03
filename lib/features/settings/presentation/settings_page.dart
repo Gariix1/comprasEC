@@ -42,7 +42,7 @@ class SettingsPage extends ConsumerWidget {
                   ),
                   const SizedBox(height: AppSpacing.xs),
                   Text(
-                    'Usuario',
+                    l10n.settingsUserName,
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                 ],
@@ -50,18 +50,18 @@ class SettingsPage extends ConsumerWidget {
               Wrap(
                 spacing: AppSpacing.xs,
                 runSpacing: AppSpacing.xxs,
-                children: const [
+                children: [
                   Chip(
                     materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     visualDensity: VisualDensity.compact,
-                    avatar: Icon(Icons.g_mobiledata, size: 16),
-                    label: Text('Google linked'),
+                    avatar: const Icon(Icons.g_mobiledata, size: 16),
+                    label: Text(l10n.settingsLinkedGoogle),
                   ),
                   Chip(
                     materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     visualDensity: VisualDensity.compact,
-                    avatar: Icon(Icons.apple, size: 16),
-                    label: Text('Apple not linked'),
+                    avatar: const Icon(Icons.apple, size: 16),
+                    label: Text(l10n.settingsLinkedApple),
                   ),
                 ],
               ),
@@ -128,12 +128,12 @@ class SettingsPage extends ConsumerWidget {
                     ButtonSegment(
                       value: ThemeMode.light,
                       icon: const Icon(Icons.light_mode),
-                      label: const Text('Light'),
+                      label: Text(l10n.settingsThemeLight),
                     ),
                     ButtonSegment(
                       value: ThemeMode.dark,
                       icon: const Icon(Icons.dark_mode),
-                      label: const Text('Dark'),
+                      label: Text(l10n.settingsThemeDark),
                     ),
                   ],
                   selected: {themeMode},
@@ -146,17 +146,17 @@ class SettingsPage extends ConsumerWidget {
               ),
               AppListTile(
                 icon: Icons.language,
-                title: 'Idioma',
+                title: l10n.settingsLanguage,
                 subtitle: locale?.languageCode == 'en'
-                    ? 'English'
+                    ? l10n.settingsLanguageEnglish
                     : locale?.languageCode == 'es'
-                        ? 'Español'
-                        : 'Predeterminado del sistema',
+                        ? l10n.settingsLanguageSpanish
+                        : l10n.settingsLanguageSystem,
                 trailing: const SizedBox.shrink(),
                 onTap: () async {
                   await showAppContentSheet(
                     context: context,
-                    title: 'Idioma',
+                    title: l10n.settingsLanguage,
                     child: _LanguageSheet(
                       current: locale,
                       onSelect: (loc) => localeNotifier.setLocale(loc),
@@ -198,6 +198,7 @@ class _LanguageSheetState extends State<_LanguageSheet> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -205,19 +206,19 @@ class _LanguageSheetState extends State<_LanguageSheet> {
         RadioListTile<Locale?>(
           value: null,
           groupValue: _selected,
-          title: const Text('Predeterminado del sistema'),
+          title: Text(l10n.settingsLanguageSystem),
           onChanged: _update,
         ),
         RadioListTile<Locale?>(
           value: const Locale('es'),
           groupValue: _selected,
-          title: const Text('Español'),
+          title: Text(l10n.settingsLanguageSpanish),
           onChanged: _update,
         ),
         RadioListTile<Locale?>(
           value: const Locale('en'),
           groupValue: _selected,
-          title: const Text('English'),
+          title: Text(l10n.settingsLanguageEnglish),
           onChanged: _update,
         ),
       ],

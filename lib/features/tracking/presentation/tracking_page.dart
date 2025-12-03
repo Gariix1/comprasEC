@@ -12,8 +12,6 @@ import '../../../core/widgets/app_empty_state.dart';
 import '../../../core/widgets/app_loading_overlay.dart';
 import '../../../core/widgets/app_page_scaffold.dart';
 import '../../../core/widgets/app_section.dart';
-import '../../../core/widgets/glass_form_text_field.dart';
-import '../../../core/widgets/glass_surface.dart';
 import '../domain/tracking_event.dart';
 import 'widgets/tracking_status_tile.dart';
 
@@ -53,27 +51,31 @@ class _TrackingPageState extends ConsumerState<TrackingPage> {
 
           return Column(
             children: [
-              GlassSurface(
-                maxWidth: maxWidth,
-                child: GlassFormTextField(
-                  controller: _controller,
-                  label: l10n.trackingNumber,
-                  hint: l10n.trackingHint,
-                  icon: Icons.local_shipping,
+              TextField(
+                controller: _controller,
+                decoration: InputDecoration(
+                  labelText: l10n.trackingNumber,
+                  hintText: l10n.trackingHint,
+                  prefixIcon: const Icon(Icons.local_shipping),
                   errorText: _error,
+                  filled: true,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
                 ),
+                keyboardType: TextInputType.text,
               ),
               const SizedBox(height: AppSpacing.md),
               AppLoadingOverlay(
                 loading: loading,
-                child: Card(
-                  elevation: 4,
-                  child: Padding(
-                    padding: const EdgeInsets.all(AppSpacing.md),
-                    child: AppSection(
-                      title: l10n.trackingTimeline,
-                      spacing: AppSpacing.sm,
-                      child: AnimatedSwitcher(
+                child: Padding(
+                  padding: const EdgeInsets.all(AppSpacing.md),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(l10n.trackingTimeline, style: Theme.of(context).textTheme.titleMedium),
+                      const SizedBox(height: AppSpacing.sm),
+                      AnimatedSwitcher(
                         duration: const Duration(milliseconds: 220),
                         transitionBuilder: (child, animation) => FadeThroughTransition(
                           animation: animation,
@@ -111,34 +113,28 @@ class _TrackingPageState extends ConsumerState<TrackingPage> {
                                     ],
                                   ),
                       ),
-                    ),
+                    ],
                   ),
                 ),
               ),
               const SizedBox(height: AppSpacing.md),
-              Card(
-                elevation: 3,
-                child: Padding(
-                  padding: const EdgeInsets.all(AppSpacing.md),
-                  child: AppButton.primary(
-                    label: l10n.trackingRefresh,
-                    icon: Icons.refresh,
-                    onPressed: () {
-                      setState(() {
-                        _error = Validators.requiredField(
-                          _controller.text,
-                          message: l10n.trackingErrorInvalid,
-                        );
-                        if (_error == null) {
-                          _futureEvents =
-                              ref.read(trackingRepositoryProvider).fetchTrackingEvents(
-                                    _controller.text,
-                                  );
-                        }
-                      });
-                    },
-                  ),
-                ),
+              AppButton.primary(
+                label: l10n.trackingRefresh,
+                icon: Icons.refresh,
+                onPressed: () {
+                  setState(() {
+                    _error = Validators.requiredField(
+                      _controller.text,
+                      message: l10n.trackingErrorInvalid,
+                    );
+                    if (_error == null) {
+                      _futureEvents =
+                          ref.read(trackingRepositoryProvider).fetchTrackingEvents(
+                                _controller.text,
+                              );
+                    }
+                  });
+                },
               ),
             ],
           );

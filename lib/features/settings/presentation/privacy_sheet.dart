@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/widgets/app_modal.dart';
+import 'package:compras_ec/l10n/app_localizations.dart';
 
 class PrivacySheet extends StatelessWidget {
   const PrivacySheet({super.key});
@@ -7,7 +8,7 @@ class PrivacySheet extends StatelessWidget {
   static Future<void> show(BuildContext context) {
     return showAppContentSheet(
       context: context,
-      title: 'Privacy',
+      title: AppLocalizations.of(context)!.settingsPrivacy,
       child: const _PrivacyBody(),
     );
   }
@@ -24,6 +25,7 @@ class _PrivacyBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context)!;
     return Card(
       elevation: 2,
       child: Padding(
@@ -31,10 +33,10 @@ class _PrivacyBody extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Data & activity', style: theme.textTheme.titleMedium),
+            Text(l10n.settingsDataActivityTitle, style: theme.textTheme.titleMedium),
             const SizedBox(height: 8),
             Text(
-              'Control data usage, activity logs and permissions here.',
+              l10n.settingsDataActivitySubtitle,
               style: theme.textTheme.bodyMedium,
             ),
           ],
