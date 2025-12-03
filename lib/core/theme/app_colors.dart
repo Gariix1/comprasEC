@@ -7,8 +7,8 @@ class AppColors {
   static const seedDark = Color(0xFF4ADE80);
 
   static const gradientLight = [
-    Color(0xFFF7FBF8),
-    Color(0xFFE3F3E8),
+    Color(0xFFEEF5F0),
+    Color(0xFFD8E8DE),
   ];
 
   static const gradientDark = [

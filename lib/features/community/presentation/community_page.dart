@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:compras_ec/l10n/app_localizations.dart';
 import 'package:animations/animations.dart';
+import 'package:implicitly_animated_list/implicitly_animated_list.dart';
 
 import '../../../core/services/providers.dart';
 import '../../../core/theme/app_spacing.dart';
@@ -61,13 +62,26 @@ class CommunityPage extends ConsumerWidget {
                                   message: l10n.communityEmpty,
                                   icon: Icons.forum_outlined,
                                 )
-                              : Column(
+                              : ImplicitlyAnimatedList<CommunityPost>(
                                   key: const ValueKey('community-data'),
-                                  children: posts
-                                      .map(
-                                        (post) => Padding(
+                                  items: posts,
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  areItemsTheSame: (a, b) =>
+                                      a.author == b.author && a.content == b.content,
+                                  itemBuilder: (context, animation, post, index) {
+                                    return FadeTransition(
+                                      opacity: animation,
+                                      child: SlideTransition(
+                                        position: animation.drive(
+                                          Tween<Offset>(
+                                            begin: const Offset(0, 0.02),
+                                            end: Offset.zero,
+                                          ).chain(CurveTween(curve: Curves.easeOut)),
+                                        ),
+                                        child: Padding(
                                           padding: EdgeInsets.only(
-                                            bottom: post == posts.last ? 0 : AppSpacing.sm,
+                                            bottom: index == posts.length - 1 ? 0 : AppSpacing.sm,
                                           ),
                                           child: PostCard(
                                             author: post.author,
@@ -76,8 +90,28 @@ class CommunityPage extends ConsumerWidget {
                                             tags: post.tags,
                                           ),
                                         ),
-                                      )
-                                      .toList(),
+                                      ),
+                                    );
+                                  },
+                                  removeItemBuilder: (context, animation, post) {
+                                    return FadeTransition(
+                                      opacity: animation,
+                                      child: SlideTransition(
+                                        position: animation.drive(
+                                          Tween<Offset>(
+                                            begin: const Offset(0, 0.02),
+                                            end: Offset.zero,
+                                          ).chain(CurveTween(curve: Curves.easeOut)),
+                                        ),
+                                        child: PostCard(
+                                          author: post.author,
+                                          likes: post.likes,
+                                          content: post.content,
+                                          tags: post.tags,
+                                        ),
+                                      ),
+                                    );
+                                  },
                                 ),
                     ),
                   ],

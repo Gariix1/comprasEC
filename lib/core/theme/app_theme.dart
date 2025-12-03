@@ -27,10 +27,10 @@ class AppTheme {
       appBarTheme: const AppBarTheme(centerTitle: false),
       textTheme: AppTypography.textTheme(scheme),
       cardTheme: CardThemeData(
-        elevation: 0,
-        surfaceTintColor: Colors.transparent,
+        elevation: 2,
+        surfaceTintColor: scheme.surfaceTint,
         color: scheme.surface,
-        shadowColor: scheme.shadow.withOpacity(0.3),
+        shadowColor: scheme.shadow.withOpacity(0.35),
         margin: EdgeInsets.zero,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         clipBehavior: Clip.antiAlias,
