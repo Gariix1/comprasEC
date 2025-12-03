@@ -41,7 +41,7 @@ class SlidingNavBar extends StatelessWidget {
                 borderRadius: BorderRadius.circular(18),
                 boxShadow: [
                   BoxShadow(
-                    color: scheme.shadow.withOpacity(0.08),
+                    color: scheme.shadow.withValues(alpha: scheme.shadow.a * 255.0 * 0.08),
                     blurRadius: 12,
                     offset: const Offset(0, 4),
                   ),
