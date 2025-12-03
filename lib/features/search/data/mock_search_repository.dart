@@ -6,7 +6,5 @@ class MockSearchRepository implements SearchRepository {
   const MockSearchRepository();
 
   @override
-  List<Offer> fetchFeatured() {
-    return mockOffers;
-  }
+  Future<List<Offer>> fetchFeatured() async => mockOffers;
 }

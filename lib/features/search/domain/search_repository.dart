@@ -1,5 +1,5 @@
 import 'offer.dart';
 
 abstract class SearchRepository {
-  List<Offer> fetchFeatured();
+  Future<List<Offer>> fetchFeatured();
 }

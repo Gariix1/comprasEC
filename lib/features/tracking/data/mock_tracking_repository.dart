@@ -6,8 +6,5 @@ class MockTrackingRepository implements TrackingRepository {
   const MockTrackingRepository();
 
   @override
-  List<TrackingEvent> fetchTrackingEvents(String trackingId) {
-    // Ignoring trackingId; return mock data.
-    return mockTrackingEvents;
-  }
+  Future<List<TrackingEvent>> fetchTrackingEvents(String trackingId) async => mockTrackingEvents;
 }

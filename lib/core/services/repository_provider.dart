@@ -12,17 +12,17 @@ import 'environment.dart';
 // Placeholder real repositories (implement actual data fetching later)
 class RealSearchRepository implements SearchRepository {
   @override
-  List<Offer> fetchFeatured() => const [];
+  Future<List<Offer>> fetchFeatured() async => const [];
 }
 
 class RealTrackingRepository implements TrackingRepository {
   @override
-  List<TrackingEvent> fetchTrackingEvents(String trackingId) => const [];
+  Future<List<TrackingEvent>> fetchTrackingEvents(String trackingId) async => const [];
 }
 
 class RealCommunityRepository implements CommunityRepository {
   @override
-  List<CommunityPost> fetchFeed() => const [];
+  Future<List<CommunityPost>> fetchFeed() async => const [];
 }
 
 class RepositoryProvider {

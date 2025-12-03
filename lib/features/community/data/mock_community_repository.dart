@@ -6,7 +6,5 @@ class MockCommunityRepository implements CommunityRepository {
   const MockCommunityRepository();
 
   @override
-  List<CommunityPost> fetchFeed() {
-    return mockPosts;
-  }
+  Future<List<CommunityPost>> fetchFeed() async => mockPosts;
 }
