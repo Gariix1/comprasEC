@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:compras_ec/l10n/app_localizations.dart';
+import 'package:animations/animations.dart';
 
 import '../../../core/services/providers.dart';
 import '../../../core/theme/app_spacing.dart';
@@ -49,57 +50,67 @@ class _SearchPageState extends ConsumerState<SearchPage> {
 
           return AppLoadingOverlay(
             loading: loading,
-           child: Column(
-             crossAxisAlignment: CrossAxisAlignment.stretch,
-             children: [
-               GlassTextField(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                GlassTextField(
                   label: l10n.searchPlaceholder,
                   hint: l10n.searchHint,
                   icon: Icons.search,
                 ),
                 const SizedBox(height: AppSpacing.md),
-                if (hasError)
-                  AppEmptyState(
-                    title: l10n.searchFeatured,
-                    message: l10n.errorGeneric,
-                    icon: Icons.error_outline,
-                  )
-                else if (data.isEmpty)
-                  AppEmptyState(
-                    title: l10n.searchFeatured,
-                    message: l10n.searchEmptyMessage,
-                    icon: Icons.search_off,
-                  )
-                else
-                  SectionCard(
-                    title: l10n.searchFeatured,
-                    action: AppActionBar(
-                      children: [
-                        AppButton.secondary(
-                          label: l10n.searchCreateAlert,
-                          icon: Icons.notifications_outlined,
-                        ),
-                        AppButton.primary(
-                          label: l10n.searchFilter,
-                          icon: Icons.filter_list,
-                        ),
-                      ],
-                    ),
-                    child: GridView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      gridDelegate: delegate,
-                      itemCount: data.length,
-                      itemBuilder: (context, index) {
-                        final Offer offer = data[index];
-                        return OfferCard(
-                          title: offer.title,
-                          marketplaces: offer.marketplaces,
-                          price: offer.price,
-                        );
-                      },
-                    ),
+                AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 220),
+                  transitionBuilder: (child, animation) => FadeThroughTransition(
+                    animation: animation,
+                    secondaryAnimation: animation,
+                    child: child,
                   ),
+                  child: hasError
+                      ? AppEmptyState(
+                          key: const ValueKey('search-error'),
+                          title: l10n.searchFeatured,
+                          message: l10n.errorGeneric,
+                          icon: Icons.error_outline,
+                        )
+                      : data.isEmpty
+                          ? AppEmptyState(
+                              key: const ValueKey('search-empty'),
+                              title: l10n.searchFeatured,
+                              message: l10n.searchEmptyMessage,
+                              icon: Icons.search_off,
+                            )
+                          : SectionCard(
+                              key: const ValueKey('search-data'),
+                              title: l10n.searchFeatured,
+                              action: AppActionBar(
+                                children: [
+                                  AppButton.secondary(
+                                    label: l10n.searchCreateAlert,
+                                    icon: Icons.notifications_outlined,
+                                  ),
+                                  AppButton.primary(
+                                    label: l10n.searchFilter,
+                                    icon: Icons.filter_list,
+                                  ),
+                                ],
+                              ),
+                              child: GridView.builder(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                gridDelegate: delegate,
+                                itemCount: data.length,
+                                itemBuilder: (context, index) {
+                                  final Offer offer = data[index];
+                                  return OfferCard(
+                                    title: offer.title,
+                                    marketplaces: offer.marketplaces,
+                                    price: offer.price,
+                                  );
+                                },
+                              ),
+                            ),
+                ),
               ],
             ),
           );

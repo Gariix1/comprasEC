@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../theme/app_spacing.dart';
 import 'app_section.dart';
-import 'glass_surface.dart';
 
 class SectionCard extends StatelessWidget {
   const SectionCard({
@@ -22,14 +21,31 @@ class SectionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GlassSurface(
-      maxWidth: maxWidth,
-      child: AppSection(
-        title: title,
-        action: action,
-        spacing: spacing,
-        child: child,
-      ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final targetWidth = maxWidth == null
+            ? constraints.maxWidth
+            : maxWidth!.clamp(0, constraints.maxWidth).toDouble();
+
+        return Align(
+          alignment: Alignment.topCenter,
+          child: ConstrainedBox(
+            constraints: BoxConstraints(maxWidth: targetWidth),
+            child: Card(
+              elevation: 3,
+              child: Padding(
+                padding: const EdgeInsets.all(AppSpacing.md),
+                child: AppSection(
+                  title: title,
+                  action: action,
+                  spacing: spacing,
+                  child: child,
+                ),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

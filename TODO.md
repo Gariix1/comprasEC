@@ -68,7 +68,7 @@
 
 ## Modernización Material 3 (pendiente)
 - [x] Ajustar `AppTheme` a M3 avanzado: `pageTransitionsTheme` (fadeThrough para tabs, sharedAxis para flows), `cardTheme` con superficie controlada y `inputDecorationTheme` filled con `surfaceVariant`.
-- [ ] Reemplazar glass en tarjetas densas por `Card` M3 (tonalElevation 3–5); mantener glass solo en hero/blocks clave. NavigationBar sobre `surface` con `indicatorColor` del scheme.
+- [x] Reemplazar glass en tarjetas densas por `Card` M3 (tonalElevation 3–5); mantener glass solo en hero/blocks clave. NavigationBar sobre `surface` con `indicatorColor` del scheme.
 - [ ] Motion: usar `AnimatedSwitcher` en estados loading/empty/data y `AnimatedContainer`/hover/focus; `ImplicitlyAnimatedList` opcional para feeds.
 - [ ] Componentes M3: Search con chips (Filter/Assist), TextField filled; Tracker con `ListTile` M3 + `tonalElevation`; Config/Comunidad con `Card` + `ListTile` y `AssistChip` para acciones.
 - [ ] Shapes y spacing: bordes 12/16px en `cardTheme/bottomSheet/dialog`, mantener escala AppSpacing (4/8/12/16/24); revisar maxWidth y grids ya existentes.

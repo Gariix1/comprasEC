@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:animations/animations.dart';
 
 import 'app_colors.dart';
 import 'app_typography.dart';
@@ -25,7 +26,7 @@ class AppTheme {
       scaffoldBackgroundColor: Colors.transparent,
       appBarTheme: const AppBarTheme(centerTitle: false),
       textTheme: AppTypography.textTheme(scheme),
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         elevation: 0,
         surfaceTintColor: Colors.transparent,
         color: scheme.surface,
@@ -33,6 +34,11 @@ class AppTheme {
         margin: EdgeInsets.zero,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         clipBehavior: Clip.antiAlias,
+      ),
+      navigationBarTheme: NavigationBarThemeData(
+        backgroundColor: scheme.surface,
+        indicatorColor: scheme.primary.withOpacity(0.16),
+        labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
       ),
       pageTransitionsTheme: const PageTransitionsTheme(
         builders: {
@@ -44,10 +50,6 @@ class AppTheme {
           TargetPlatform.macOS: FadeThroughPageTransitionsBuilder(),
           TargetPlatform.windows: FadeThroughPageTransitionsBuilder(),
         },
-      ),
-      navigationBarTheme: NavigationBarThemeData(
-        indicatorColor: scheme.primary.withOpacity(0.16),
-        labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
       ),
       inputDecorationTheme: InputDecorationTheme(
         isDense: true,

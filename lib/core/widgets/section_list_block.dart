@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../theme/app_spacing.dart';
 import 'app_section.dart';
-import 'glass_surface.dart';
 
-/// Wrapper that combines GlassSurface + AppSection + Column children.
+/// Wrapper that combines a centered card + AppSection + Column children.
 class SectionListBlock extends StatelessWidget {
   const SectionListBlock({
     super.key,
@@ -25,24 +24,40 @@ class SectionListBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GlassSurface(
-      maxWidth: maxWidth,
-      padding: padding ?? const EdgeInsets.all(AppSpacing.md),
-      child: AppSection(
-        title: title,
-        action: action,
-        spacing: spacing,
-        child: Column(
-          children: children
-              .map(
-                (w) => Padding(
-                  padding: EdgeInsets.only(bottom: w == children.last ? 0 : spacing),
-                  child: w,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final targetWidth = maxWidth == null
+            ? constraints.maxWidth
+            : maxWidth!.clamp(0, constraints.maxWidth).toDouble();
+
+        return Align(
+          alignment: Alignment.topCenter,
+          child: ConstrainedBox(
+            constraints: BoxConstraints(maxWidth: targetWidth),
+            child: Card(
+              elevation: 3,
+              child: Padding(
+                padding: padding ?? const EdgeInsets.all(AppSpacing.md),
+                child: AppSection(
+                  title: title,
+                  action: action,
+                  spacing: spacing,
+                  child: Column(
+                    children: children
+                        .map(
+                          (w) => Padding(
+                            padding: EdgeInsets.only(bottom: w == children.last ? 0 : spacing),
+                            child: w,
+                          ),
+                        )
+                        .toList(),
+                  ),
                 ),
-              )
-              .toList(),
-        ),
-      ),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

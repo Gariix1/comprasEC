@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:compras_ec/l10n/app_localizations.dart';
+import 'package:animations/animations.dart';
 
 import '../../../core/services/providers.dart';
 import '../../../core/theme/app_spacing.dart';
@@ -38,32 +39,48 @@ class CommunityPage extends ConsumerWidget {
                   maxWidth: maxWidth,
                   title: l10n.communityTitle,
                   spacing: AppSpacing.sm,
-                  children: hasError
-                      ? [
-                          AppEmptyState(
-                            title: l10n.communityTitle,
-                            message: l10n.communityError,
-                            icon: Icons.error_outline,
-                          ),
-                        ]
-                      : posts.isEmpty
-                          ? [
-                              AppEmptyState(
-                                title: l10n.communityTitle,
-                                message: l10n.communityEmpty,
-                                icon: Icons.forum_outlined,
-                              ),
-                            ]
-                          : posts
-                              .map(
-                                (post) => PostCard(
-                                  author: post.author,
-                                  likes: post.likes,
-                                  content: post.content,
-                                  tags: post.tags,
+                  children: [
+                    AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 220),
+                      transitionBuilder: (child, animation) => FadeThroughTransition(
+                        animation: animation,
+                        secondaryAnimation: animation,
+                        child: child,
+                      ),
+                      child: hasError
+                          ? AppEmptyState(
+                              key: const ValueKey('community-error'),
+                              title: l10n.communityTitle,
+                              message: l10n.communityError,
+                              icon: Icons.error_outline,
+                            )
+                          : posts.isEmpty
+                              ? AppEmptyState(
+                                  key: const ValueKey('community-empty'),
+                                  title: l10n.communityTitle,
+                                  message: l10n.communityEmpty,
+                                  icon: Icons.forum_outlined,
+                                )
+                              : Column(
+                                  key: const ValueKey('community-data'),
+                                  children: posts
+                                      .map(
+                                        (post) => Padding(
+                                          padding: EdgeInsets.only(
+                                            bottom: post == posts.last ? 0 : AppSpacing.sm,
+                                          ),
+                                          child: PostCard(
+                                            author: post.author,
+                                            likes: post.likes,
+                                            content: post.content,
+                                            tags: post.tags,
+                                          ),
+                                        ),
+                                      )
+                                      .toList(),
                                 ),
-                              )
-                              .toList(),
+                    ),
+                  ],
                 ),
               );
             },
