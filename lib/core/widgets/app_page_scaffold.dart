@@ -61,7 +61,6 @@ class AppPageScaffold extends StatelessWidget {
                     alignment: alignment,
                     child: ConstrainedBox(
                       constraints: BoxConstraints(
-                        minWidth: widthConstraint,
                         maxWidth: widthConstraint,
                       ),
                       child: child,
@@ -77,7 +76,6 @@ class AppPageScaffold extends StatelessWidget {
                   alignment: alignment,
                   child: ConstrainedBox(
                     constraints: BoxConstraints(
-                      minWidth: widthConstraint,
                       maxWidth: widthConstraint,
                     ),
                     child: child,

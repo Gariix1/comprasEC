@@ -91,6 +91,15 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
 
     final pageTransition = AnimatedSwitcher(
       duration: const Duration(milliseconds: 400),
+      layoutBuilder: (currentChild, previousChildren) {
+        return Stack(
+          fit: StackFit.expand,
+          children: [
+            ...previousChildren,
+            if (currentChild != null) currentChild,
+          ],
+        );
+      },
       transitionBuilder: (child, animation) {
         return FadeTransition(
           opacity: animation,
@@ -102,7 +111,7 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
           ),
         );
       },
-      child: Container(
+      child: KeyedSubtree(
         key: ValueKey<int>(currentIndex),
         child: pages[currentIndex],
       ),
