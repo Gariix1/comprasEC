@@ -8,7 +8,9 @@ import 'features/community/presentation/community_page.dart';
 import 'features/search/presentation/search_page.dart';
 import 'features/settings/presentation/settings_page.dart';
 import 'features/tracking/presentation/tracking_page.dart';
+import 'features/services/presentation/connected_services_page.dart';
 import 'core/services/theme_controller.dart';
+import 'core/services/locale_controller.dart';
 
 class ComprasEcApp extends ConsumerWidget {
   const ComprasEcApp({super.key});
@@ -16,6 +18,7 @@ class ComprasEcApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final themeMode = ref.watch(themeModeProvider);
+    final locale = ref.watch(localeProvider);
     final lightTheme = AppTheme.light();
     final darkTheme = AppTheme.dark();
 
@@ -24,6 +27,7 @@ class ComprasEcApp extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
+      locale: locale,
       localeResolutionCallback: (locale, supported) {
         if (locale == null) return supported.first;
         return supported.firstWhere(
@@ -64,8 +68,9 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
   int _currentIndex = 0;
 
   List<Widget> get _pages => const [
-        SearchPage(),
         TrackingPage(),
+        ConnectedServicesPage(),
+        SearchPage(),
         CommunityPage(),
         SettingsPage(),
       ];
@@ -120,24 +125,35 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
                   NavigationRailDestination(
                     icon: Semantics(
                       container: true,
-                      label: l10n?.navSearch ?? 'Buscar',
+                      label: l10n?.navTracking ?? 'Tracker',
                       child: BouncyIcon(
-                        icon: Icons.search,
+                        icon: Icons.local_shipping_outlined,
                         isSelected: currentIndex == 0,
                       ),
                     ),
-                    label: Text(l10n?.navSearch ?? 'Buscar'),
+                    label: Text(l10n?.navTracking ?? 'Tracker'),
                   ),
                   NavigationRailDestination(
                     icon: Semantics(
                       container: true,
-                      label: l10n?.navTracking ?? 'Tracker',
+                      label: 'Servicios conectados',
                       child: BouncyIcon(
-                        icon: Icons.local_shipping_outlined,
+                        icon: Icons.link_outlined,
                         isSelected: currentIndex == 1,
                       ),
                     ),
-                    label: Text(l10n?.navTracking ?? 'Tracker'),
+                    label: const Text('Servicios'),
+                  ),
+                  NavigationRailDestination(
+                    icon: Semantics(
+                      container: true,
+                      label: l10n?.navSearch ?? 'Buscar',
+                      child: BouncyIcon(
+                        icon: Icons.search,
+                        isSelected: currentIndex == 2,
+                      ),
+                    ),
+                    label: Text(l10n?.navSearch ?? 'Buscar'),
                   ),
                   NavigationRailDestination(
                     icon: Semantics(
@@ -184,24 +200,35 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
             NavigationDestination(
               icon: Semantics(
                 container: true,
-                label: l10n?.navSearch ?? 'Buscar',
+                label: l10n?.navTracking ?? 'Tracker',
                 child: BouncyIcon(
-                  icon: Icons.search,
+                  icon: Icons.local_shipping_outlined,
                   isSelected: currentIndex == 0,
                 ),
               ),
-              label: l10n?.navSearch ?? 'Buscar',
+              label: l10n?.navTracking ?? 'Tracker',
             ),
             NavigationDestination(
               icon: Semantics(
                 container: true,
-                label: l10n?.navTracking ?? 'Tracker',
+                label: 'Servicios conectados',
                 child: BouncyIcon(
-                  icon: Icons.local_shipping_outlined,
+                  icon: Icons.link_outlined,
                   isSelected: currentIndex == 1,
                 ),
               ),
-              label: l10n?.navTracking ?? 'Tracker',
+              label: 'Servicios',
+            ),
+            NavigationDestination(
+              icon: Semantics(
+                container: true,
+                label: l10n?.navSearch ?? 'Buscar',
+                child: BouncyIcon(
+                  icon: Icons.search,
+                  isSelected: currentIndex == 2,
+                ),
+              ),
+              label: l10n?.navSearch ?? 'Buscar',
             ),
             NavigationDestination(
               icon: Semantics(

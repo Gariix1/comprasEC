@@ -8,6 +8,8 @@ import '../../../core/widgets/app_list_tile.dart';
 import '../../../core/widgets/app_page_scaffold.dart';
 import '../../../core/widgets/section_list_block.dart';
 import '../../../core/services/theme_controller.dart';
+import '../../../core/services/locale_controller.dart';
+import '../../../core/widgets/app_modal.dart';
 import 'profile_sheet.dart';
 import 'privacy_sheet.dart';
 
@@ -20,6 +22,8 @@ class SettingsPage extends ConsumerWidget {
     final maxWidth = maxContentWidth(context);
     final themeMode = ref.watch(themeModeProvider);
     final themeNotifier = ref.read(themeModeProvider.notifier);
+    final locale = ref.watch(localeProvider);
+    final localeNotifier = ref.read(localeProvider.notifier);
 
     return AppPageScaffold(
       maxWidth: maxWidth,
@@ -27,35 +31,53 @@ class SettingsPage extends ConsumerWidget {
         children: [
           SectionListBlock(
             maxWidth: maxWidth,
-            title: l10n.settingsAppearance,
+            title: l10n.settingsAccount,
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: AppSpacing.xs),
-                child: SegmentedButton<ThemeMode>(
-                  segments: [
-                    ButtonSegment(
-                      value: ThemeMode.system,
-                      icon: const Icon(Icons.auto_mode),
-                      label: Text(l10n.settingsTheme),
-                    ),
-                    ButtonSegment(
-                      value: ThemeMode.light,
-                      icon: const Icon(Icons.light_mode),
-                      label: const Text('Light'),
-                    ),
-                    ButtonSegment(
-                      value: ThemeMode.dark,
-                      icon: const Icon(Icons.dark_mode),
-                      label: const Text('Dark'),
-                    ),
-                  ],
-                  selected: {themeMode},
-                  onSelectionChanged: (values) {
-                    if (values.isNotEmpty) {
-                      themeNotifier.setMode(values.first);
-                    }
-                  },
-                ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  CircleAvatar(
+                    radius: 32,
+                    child: const Icon(Icons.person, size: 32),
+                  ),
+                  const SizedBox(height: AppSpacing.xs),
+                  Text(
+                    'Usuario',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                ],
+              ),
+              Wrap(
+                spacing: AppSpacing.xs,
+                runSpacing: AppSpacing.xxs,
+                children: const [
+                  Chip(
+                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    visualDensity: VisualDensity.compact,
+                    avatar: Icon(Icons.g_mobiledata, size: 16),
+                    label: Text('Google linked'),
+                  ),
+                  Chip(
+                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    visualDensity: VisualDensity.compact,
+                    avatar: Icon(Icons.apple, size: 16),
+                    label: Text('Apple not linked'),
+                  ),
+                ],
+              ),
+              AppListTile(
+                icon: Icons.person_outline,
+                title: l10n.settingsProfile,
+                subtitle: l10n.settingsProfileSubtitle,
+                trailing: const SizedBox.shrink(),
+                onTap: () => ProfileSheet.show(context),
+              ),
+              AppListTile(
+                icon: Icons.security_outlined,
+                title: l10n.settingsPrivacy,
+                subtitle: l10n.settingsPrivacySubtitle,
+                trailing: const SizedBox.shrink(),
+                onTap: () => PrivacySheet.show(context),
               ),
             ],
           ),
@@ -92,29 +114,113 @@ class SettingsPage extends ConsumerWidget {
           const SizedBox(height: AppSpacing.sm),
           SectionListBlock(
             maxWidth: maxWidth,
-            title: l10n.settingsAccount,
-            action: ActionChip(
-              label: Text(l10n.settingsEditProfile),
-              avatar: const Icon(Icons.edit_outlined, size: 18),
-              onPressed: () => ProfileSheet.show(context),
-            ),
+            title: l10n.settingsAppearance,
             children: [
-              AppListTile(
-                icon: Icons.person_outline,
-                title: l10n.settingsProfile,
-                subtitle: l10n.settingsProfileSubtitle,
-                onTap: () => ProfileSheet.show(context),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: AppSpacing.xs),
+                child: SegmentedButton<ThemeMode>(
+                  segments: [
+                    ButtonSegment(
+                      value: ThemeMode.system,
+                      icon: const Icon(Icons.auto_mode),
+                      label: Text(l10n.settingsTheme),
+                    ),
+                    ButtonSegment(
+                      value: ThemeMode.light,
+                      icon: const Icon(Icons.light_mode),
+                      label: const Text('Light'),
+                    ),
+                    ButtonSegment(
+                      value: ThemeMode.dark,
+                      icon: const Icon(Icons.dark_mode),
+                      label: const Text('Dark'),
+                    ),
+                  ],
+                  selected: {themeMode},
+                  onSelectionChanged: (values) {
+                    if (values.isNotEmpty) {
+                      themeNotifier.setMode(values.first);
+                    }
+                  },
+                ),
               ),
               AppListTile(
-                icon: Icons.security_outlined,
-                title: l10n.settingsPrivacy,
-                subtitle: l10n.settingsPrivacySubtitle,
-                onTap: () => PrivacySheet.show(context),
+                icon: Icons.language,
+                title: 'Idioma',
+                subtitle: locale?.languageCode == 'en'
+                    ? 'English'
+                    : locale?.languageCode == 'es'
+                        ? 'Español'
+                        : 'Predeterminado del sistema',
+                trailing: const SizedBox.shrink(),
+                onTap: () async {
+                  await showAppContentSheet(
+                    context: context,
+                    title: 'Idioma',
+                    child: _LanguageSheet(
+                      current: locale,
+                      onSelect: (loc) => localeNotifier.setLocale(loc),
+                    ),
+                  );
+                },
               ),
             ],
           ),
         ],
       ),
+    );
+  }
+}
+
+class _LanguageSheet extends StatefulWidget {
+  const _LanguageSheet({required this.current, required this.onSelect});
+
+  final Locale? current;
+  final ValueChanged<Locale?> onSelect;
+
+  @override
+  State<_LanguageSheet> createState() => _LanguageSheetState();
+}
+
+class _LanguageSheetState extends State<_LanguageSheet> {
+  Locale? _selected;
+
+  @override
+  void initState() {
+    super.initState();
+    _selected = widget.current;
+  }
+
+  void _update(Locale? value) {
+    setState(() => _selected = value);
+    widget.onSelect(value);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        RadioListTile<Locale?>(
+          value: null,
+          groupValue: _selected,
+          title: const Text('Predeterminado del sistema'),
+          onChanged: _update,
+        ),
+        RadioListTile<Locale?>(
+          value: const Locale('es'),
+          groupValue: _selected,
+          title: const Text('Español'),
+          onChanged: _update,
+        ),
+        RadioListTile<Locale?>(
+          value: const Locale('en'),
+          groupValue: _selected,
+          title: const Text('English'),
+          onChanged: _update,
+        ),
+      ],
     );
   }
 }

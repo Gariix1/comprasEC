@@ -5,51 +5,40 @@ class PrivacySheet extends StatelessWidget {
   const PrivacySheet({super.key});
 
   static Future<void> show(BuildContext context) {
-    return showAppModalSheet(
+    return showAppContentSheet(
       context: context,
-      builder: (ctx) => const PrivacySheet(),
+      title: 'Privacy',
+      child: const _PrivacyBody(),
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    return const _PrivacyBody();
+  }
+}
+
+class _PrivacyBody extends StatelessWidget {
+  const _PrivacyBody();
+
+  @override
+  Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              IconButton(
-                icon: const Icon(Icons.close),
-                onPressed: () => Navigator.of(context).maybePop(),
-                tooltip: 'Close',
-              ),
-              const SizedBox(width: 4),
-              Text('Privacy', style: theme.textTheme.titleLarge),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Card(
-            elevation: 2,
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Data & activity', style: theme.textTheme.titleMedium),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Control data usage, activity logs and permissions here.',
-                    style: theme.textTheme.bodyMedium,
-                  ),
-                ],
-              ),
+    return Card(
+      elevation: 2,
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Data & activity', style: theme.textTheme.titleMedium),
+            const SizedBox(height: 8),
+            Text(
+              'Control data usage, activity logs and permissions here.',
+              style: theme.textTheme.bodyMedium,
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

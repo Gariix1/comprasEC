@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'app_modal_scaffold.dart';
+
 /// Helper to show a modal bottom sheet with consistent M3 shape/drag handle.
 Future<T?> showAppModalSheet<T>({
   required BuildContext context,
@@ -35,5 +37,24 @@ Future<T?> showAppModalSheet<T>({
         ),
       );
     },
+  );
+}
+
+/// Helper that wraps [AppModalSheetScaffold] so only the body varies.
+Future<T?> showAppContentSheet<T>({
+  required BuildContext context,
+  required Widget child,
+  String? title,
+  List<Widget>? actions,
+  bool useRootNavigator = true,
+}) {
+  return showAppModalSheet<T>(
+    context: context,
+    useRootNavigator: useRootNavigator,
+    builder: (ctx) => AppModalSheetScaffold(
+      title: title,
+      actions: actions,
+      child: child,
+    ),
   );
 }
