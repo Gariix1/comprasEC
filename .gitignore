@@ -4,6 +4,12 @@
 *.pyc
 *.swp
 .DS_Store
+.history
+
+# Local env / tooling
+.fvm/
+*.env
+*.env.*
 
 # IDE
 .idea/
@@ -50,6 +56,7 @@ android/app/debug.keystore
 **/*.perspectivev3
 **/*sync/
 **/xcuserdata/
+**/.generated/
 
 # Windows
 windows/flutter/generated_plugin_registrant.cc
@@ -63,3 +70,7 @@ linux/flutter/generated_plugins.cmake
 
 # Coverage
 coverage/
+lcov.info
+
+# Test artifacts
+test/failures/

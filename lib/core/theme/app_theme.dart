@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:animations/animations.dart';
 
-import 'app_colors.dart';
+import 'app_palette.dart';
 import 'app_typography.dart';
 
 class AppTheme {
   const AppTheme._();
 
   static ThemeData light() {
-    final scheme =
-        ColorScheme.fromSeed(seedColor: AppColors.seedLight, brightness: Brightness.light);
-    return _baseTheme(scheme);
+    return _baseTheme(AppPalette.lightScheme());
   }
 
   static ThemeData dark() {
-    final scheme =
-        ColorScheme.fromSeed(seedColor: AppColors.seedDark, brightness: Brightness.dark);
-    return _baseTheme(scheme);
+    return _baseTheme(AppPalette.darkScheme());
   }
+
+  static ThemeData fromScheme(ColorScheme scheme) => _baseTheme(scheme);
 
   static ThemeData _baseTheme(ColorScheme scheme) {
     return ThemeData(
@@ -27,13 +25,25 @@ class AppTheme {
       appBarTheme: const AppBarTheme(centerTitle: false),
       textTheme: AppTypography.textTheme(scheme),
       cardTheme: CardThemeData(
-        elevation: 2,
+        elevation: 4,
         surfaceTintColor: scheme.surfaceTint,
         color: scheme.surface,
-        shadowColor: scheme.shadow.withOpacity(0.35),
+        shadowColor: scheme.shadow.withOpacity(0.2),
         margin: EdgeInsets.zero,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
         clipBehavior: Clip.antiAlias,
+      ),
+      bottomSheetTheme: BottomSheetThemeData(
+        backgroundColor: scheme.surface,
+        surfaceTintColor: scheme.surfaceTint,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        showDragHandle: true,
+        dragHandleColor: scheme.onSurfaceVariant.withOpacity(0.6),
+      ),
+      dialogTheme: DialogThemeData(
+        backgroundColor: scheme.surface,
+        surfaceTintColor: scheme.surfaceTint,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       ),
       navigationBarTheme: NavigationBarThemeData(
         backgroundColor: scheme.surface,
@@ -80,7 +90,7 @@ class AppTheme {
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           minimumSize: const Size.fromHeight(48),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
         ),
       ),
     );

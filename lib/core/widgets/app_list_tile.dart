@@ -9,6 +9,7 @@ class AppListTile extends StatelessWidget {
     required this.subtitle,
     this.trailing,
     this.semanticLabel,
+    this.onTap,
   });
 
   final IconData icon;
@@ -16,6 +17,7 @@ class AppListTile extends StatelessWidget {
   final String subtitle;
   final Widget? trailing;
   final String? semanticLabel;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +30,7 @@ class AppListTile extends StatelessWidget {
       title: Text(title),
       subtitle: Text(subtitle),
       trailing: trailing ?? const Icon(Icons.chevron_right),
+      onTap: onTap,
     );
   }
 }

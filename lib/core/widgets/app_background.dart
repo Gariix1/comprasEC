@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../theme/app_colors.dart';
-
 class AppBackground extends StatelessWidget {
   const AppBackground({super.key, required this.child});
 
@@ -9,19 +7,10 @@ class AppBackground extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final brightness = Theme.of(context).brightness;
-    final colors = brightness == Brightness.dark
-        ? AppColors.gradientDark
-        : AppColors.gradientLight;
+    final scheme = Theme.of(context).colorScheme;
 
     return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: colors,
-        ),
-      ),
+      color: scheme.surface,
       child: child,
     );
   }

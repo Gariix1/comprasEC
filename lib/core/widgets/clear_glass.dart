@@ -2,6 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
+import '../theme/app_palette.dart';
+
 class ClearGlass extends StatelessWidget {
   const ClearGlass({
     super.key,
@@ -19,10 +21,10 @@ class ClearGlass extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
-    // Slightly darker overlay to improve text/icon contrast on glass.
-    final base =
-        scheme.surface.withOpacity(scheme.brightness == Brightness.dark ? 0.24 : 0.26);
-    final borderColor = scheme.onSurface.withOpacity(0.16);
+    final base = scheme.brightness == Brightness.dark
+        ? AppPalette.glassDark.withOpacity(0.30)
+        : AppPalette.glassLight.withOpacity(0.28);
+    final borderColor = scheme.onSurface.withOpacity(0.14);
 
     return ClipRRect(
       borderRadius: borderRadius,

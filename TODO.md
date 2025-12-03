@@ -56,22 +56,10 @@
   - [x] Alinear mensajes de error/empty en l10n y `FutureBuilder` con repos async.
   - [x] Actualizar tests por cambios de textos/l10n (providers y strings ajustados).
 
-## Escalabilidad pendiente (queda para despues)
-- [x] Accesibilidad: contraste ajustado (overlay en glass) y focus order mejorado con `FocusTraversalGroup`; labels listos.
-- [x] CI fase 1: workflow GitHub Actions con cache de Flutter que corre analyze/test/goldens. (Fase 2 pendiente: codecov + builds por plataforma).
-- [x] Fuentes: bundlear Roboto en `assets/fonts` y declarada en `pubspec.yaml` (sin fetch, funciona offline/web).
-- [x] DI migrada a Riverpod (providers globales, overrides por env mock/prod con `buildOverrides`).
-- Pasos propuestos:
-  1) Fuentes en tests: set `GoogleFonts.config.allowRuntimeFetching=false` en `flutter_test_config.dart` y/o usar stack local para tests. **(hecho)**
-  2) Accesibilidad básica: agregar semantics labels a íconos/nav/tiles y revisar contraste en el tema; test de smoke que valide labels. **(hecho: labels + contraste/focus order)** 
-  3) CI fase 1: workflow con cache de Flutter, `flutter pub get`, `flutter analyze`, `flutter test` y goldens. **(hecho)** Fase 2: codecov + builds por plataforma.
-
 ## Modernización Material 3 (pendiente)
 - [x] Ajustar `AppTheme` a M3 avanzado: `pageTransitionsTheme` (fadeThrough para tabs, sharedAxis para flows), `cardTheme` con superficie controlada y `inputDecorationTheme` filled con `surfaceVariant`.
 - [x] Reemplazar glass en tarjetas densas por `Card` M3 (tonalElevation 3–5); mantener glass solo en hero/blocks clave. NavigationBar sobre `surface` con `indicatorColor` del scheme.
 - [x] Motion: `AnimatedSwitcher` en estados loading/empty/data y `AnimatedContainer`/hover/tap (queda opcional animar feeds con `ImplicitlyAnimatedList`).
-- [ ] Componentes M3: Search con chips (Filter/Assist), TextField filled; Tracker con `ListTile` M3 + `tonalElevation`; Config/Comunidad con `Card` + `ListTile` y `AssistChip` para acciones.
-- [ ] Shapes y spacing: bordes 12/16px en `cardTheme/bottomSheet/dialog`, mantener escala AppSpacing (4/8/12/16/24); revisar maxWidth y grids ya existentes.
-- [ ] Optional: modo “low blur” para dispositivos lentos (toggle de glass vs. tonal).
-- [ ] Dynamic color opcional en Android 12+ (toggle seed fijo vs. `DynamicColorBuilder` con fallback al seed actual).
-- [ ] Unificar transiciones M3 también en modales/diálogos (`modalBottomSheetTheme` con drag handle y `dialogTheme` alineado).
+- [x] Componentes M3: Search con chips (Filter/Assist -> ActionChip), TextField filled; Tracker con `ListTile` M3 + tonal; Config/Comunidad con `Card` + `ListTile` y chips de acción.
+- [x] Shapes y spacing: bordes 12/16px en `cardTheme/bottomSheet/dialog`, mantener escala AppSpacing (4/8/12/16/24); revisar maxWidth y grids ya existentes.
+- [x] Unificar transiciones M3 también en modales/diálogos (`modalBottomSheetTheme` con drag handle y `dialogTheme` alineado) + helper `showAppModalSheet`.

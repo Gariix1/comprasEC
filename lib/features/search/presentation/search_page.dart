@@ -11,7 +11,6 @@ import '../../../core/widgets/app_button.dart';
 import '../../../core/widgets/app_empty_state.dart';
 import '../../../core/widgets/app_loading_overlay.dart';
 import '../../../core/widgets/app_page_scaffold.dart';
-import '../../../core/widgets/glass_text_field.dart';
 import '../../../core/widgets/section_card.dart';
 import '../domain/offer.dart';
 import 'widgets/offer_card.dart';
@@ -25,6 +24,7 @@ class SearchPage extends ConsumerStatefulWidget {
 
 class _SearchPageState extends ConsumerState<SearchPage> {
   late Future<List<Offer>> _offersFuture;
+  final TextEditingController _controller = TextEditingController();
 
   @override
   void initState() {
@@ -53,10 +53,41 @@ class _SearchPageState extends ConsumerState<SearchPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                GlassTextField(
-                  label: l10n.searchPlaceholder,
-                  hint: l10n.searchHint,
-                  icon: Icons.search,
+                Card(
+                  elevation: 3,
+                  child: Padding(
+                    padding: const EdgeInsets.all(AppSpacing.sm),
+                    child: TextField(
+                      controller: _controller,
+                      decoration: InputDecoration(
+                        labelText: l10n.searchPlaceholder,
+                        hintText: l10n.searchHint,
+                        prefixIcon: const Icon(Icons.search),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: AppSpacing.md),
+                Wrap(
+                  spacing: AppSpacing.sm,
+                  runSpacing: AppSpacing.xs,
+                  children: [
+                    FilterChip(
+                      label: const Text('Electrónica'),
+                      selected: false,
+                      onSelected: (_) {},
+                    ),
+                    FilterChip(
+                      label: const Text('Hogar'),
+                      selected: false,
+                      onSelected: (_) {},
+                    ),
+                    ActionChip(
+                      avatar: const Icon(Icons.notifications_outlined, size: 18),
+                      label: Text(l10n.searchCreateAlert),
+                      onPressed: () {},
+                    ),
+                  ],
                 ),
                 const SizedBox(height: AppSpacing.md),
                 AnimatedSwitcher(
