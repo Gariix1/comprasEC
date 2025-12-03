@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:compras_ec/l10n/app_localizations.dart';
-import 'package:provider/provider.dart';
 
+import '../../../core/services/providers.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/utils/layout.dart';
 import '../../../core/utils/validators.dart';
@@ -13,17 +14,16 @@ import '../../../core/widgets/app_section.dart';
 import '../../../core/widgets/glass_form_text_field.dart';
 import '../../../core/widgets/glass_surface.dart';
 import '../domain/tracking_event.dart';
-import '../domain/tracking_repository.dart';
 import 'widgets/tracking_status_tile.dart';
 
-class TrackingPage extends StatefulWidget {
+class TrackingPage extends ConsumerStatefulWidget {
   const TrackingPage({super.key});
 
   @override
-  State<TrackingPage> createState() => _TrackingPageState();
+  ConsumerState<TrackingPage> createState() => _TrackingPageState();
 }
 
-class _TrackingPageState extends State<TrackingPage> {
+class _TrackingPageState extends ConsumerState<TrackingPage> {
   final TextEditingController _controller = TextEditingController();
   String? _error;
   Future<List<TrackingEvent>>? _futureEvents;
@@ -38,7 +38,7 @@ class _TrackingPageState extends State<TrackingPage> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final maxWidth = maxContentWidth(context);
-    final repo = context.read<TrackingRepository>();
+    final repo = ref.read(trackingRepositoryProvider);
     _futureEvents ??= repo.fetchTrackingEvents(_controller.text);
     final futureEvents = _futureEvents!;
     return AppPageScaffold(
@@ -113,7 +113,10 @@ class _TrackingPageState extends State<TrackingPage> {
                         message: l10n.trackingErrorInvalid,
                       );
                       if (_error == null) {
-                        _futureEvents = repo.fetchTrackingEvents(_controller.text);
+                        _futureEvents =
+                            ref.read(trackingRepositoryProvider).fetchTrackingEvents(
+                                  _controller.text,
+                                );
                       }
                     });
                   },

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:compras_ec/core/services/providers.dart';
 import 'package:compras_ec/core/widgets/app_action_bar.dart';
 import 'package:compras_ec/core/widgets/app_button.dart';
 import 'package:compras_ec/features/search/domain/offer.dart';
@@ -7,8 +8,8 @@ import 'package:compras_ec/features/search/domain/search_repository.dart';
 import 'package:compras_ec/features/search/presentation/search_page.dart';
 import 'package:compras_ec/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:provider/provider.dart';
 
 class _LoadingSearchRepository implements SearchRepository {
   final Completer<List<Offer>> _completer = Completer<List<Offer>>();
@@ -34,13 +35,15 @@ class _SingleSearchRepository implements SearchRepository {
 }
 
 Widget _buildSearchPage(SearchRepository repo) {
-  return MaterialApp(
-    localizationsDelegates: AppLocalizations.localizationsDelegates,
-    supportedLocales: AppLocalizations.supportedLocales,
-    home: Scaffold(
-      body: Provider<SearchRepository>.value(
-        value: repo,
-        child: const SearchPage(),
+  return ProviderScope(
+    overrides: [
+      searchRepositoryProvider.overrideWithValue(repo),
+    ],
+    child: MaterialApp(
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      home: const Scaffold(
+        body: SearchPage(),
       ),
     ),
   );
@@ -48,6 +51,7 @@ Widget _buildSearchPage(SearchRepository repo) {
 
 void main() {
   testWidgets('Search shows loading overlay while fetching', (tester) async {
+    tester.binding.platformDispatcher.localesTestValue = const [Locale('es')];
     await tester.binding.setSurfaceSize(const Size(360, 800));
     final repo = _LoadingSearchRepository();
 
@@ -59,6 +63,7 @@ void main() {
   });
 
   testWidgets('Search shows empty state when there are no offers', (tester) async {
+    tester.binding.platformDispatcher.localesTestValue = const [Locale('es')];
     await tester.binding.setSurfaceSize(const Size(360, 800));
     await tester.pumpWidget(_buildSearchPage(_EmptySearchRepository()));
     await tester.pumpAndSettle();
@@ -68,6 +73,7 @@ void main() {
   });
 
   testWidgets('AppActionBar wraps buttons on narrow widths', (tester) async {
+    tester.binding.platformDispatcher.localesTestValue = const [Locale('es')];
     await tester.binding.setSurfaceSize(const Size(260, 200));
     await tester.pumpWidget(
       const MaterialApp(

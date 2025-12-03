@@ -51,8 +51,7 @@ class OfferCard extends StatelessWidget {
             ),
           ),
           const SizedBox(width: AppSpacing.sm),
-          ConstrainedBox(
-            constraints: const BoxConstraints(minWidth: 60),
+          Flexible(
             child: Text(
               price,
               style: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),

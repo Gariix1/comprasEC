@@ -9,120 +9,120 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get appTitle => 'Compras EC';
+  String get appTitle => 'EC Shopping';
 
   @override
-  String get navSearch => 'Buscar';
+  String get navSearch => 'Search';
 
   @override
   String get navTracking => 'Tracker';
 
   @override
-  String get navCommunity => 'Comunidad';
+  String get navCommunity => 'Community';
 
   @override
-  String get navSettings => 'Config';
+  String get navSettings => 'Settings';
 
   @override
-  String get searchPlaceholder => 'Buscar producto';
+  String get searchPlaceholder => 'Search product';
 
   @override
-  String get searchHint => 'Ej: smartwatch, audifonos, ropa';
+  String get searchHint => 'e.g. smartwatch, headphones, clothes';
 
   @override
-  String get searchFeatured => 'Resultados destacados';
+  String get searchFeatured => 'Featured results';
 
   @override
-  String get searchCreateAlert => 'Crear alerta';
+  String get searchCreateAlert => 'Create alert';
 
   @override
-  String get searchFilter => 'Filtrar';
+  String get searchFilter => 'Filter';
 
   @override
-  String get trackingNumber => 'Numero de seguimiento';
+  String get trackingNumber => 'Tracking number';
 
   @override
-  String get trackingHint => 'Ej: LB123456789CN';
+  String get trackingHint => 'e.g. LB123456789CN';
 
   @override
-  String get trackingTimeline => 'Linea de tiempo';
+  String get trackingTimeline => 'Timeline';
 
   @override
-  String get trackingRefresh => 'Actualizar estado';
+  String get trackingRefresh => 'Refresh status';
 
   @override
-  String get communityTitle => 'Comunidad';
+  String get communityTitle => 'Community';
 
   @override
-  String get settingsTitle => 'Configuración';
+  String get settingsTitle => 'Settings';
 
   @override
-  String get settingsAppearance => 'Apariencia';
+  String get settingsAppearance => 'Appearance';
 
   @override
-  String get settingsTheme => 'Tema';
+  String get settingsTheme => 'Theme';
 
   @override
-  String get settingsThemeSubtitle => 'Claro / Oscuro / Sistema';
+  String get settingsThemeSubtitle => 'Light / Dark / System';
 
   @override
-  String get settingsAccent => 'Acento de color';
+  String get settingsAccent => 'Accent color';
 
   @override
-  String get settingsAccentSubtitle => 'Verde (predeterminado)';
+  String get settingsAccentSubtitle => 'Green (default)';
 
   @override
-  String get settingsNotifications => 'Notificaciones';
+  String get settingsNotifications => 'Notifications';
 
   @override
-  String get settingsOffersAlerts => 'Alertas de ofertas';
+  String get settingsOffersAlerts => 'Offers alerts';
 
   @override
-  String get settingsOffersSubtitle => 'Cambios de precio y ofertas destacadas';
+  String get settingsOffersSubtitle => 'Price changes and highlighted deals';
 
   @override
-  String get settingsShippingAlerts => 'Estados de envío';
+  String get settingsShippingAlerts => 'Shipping status';
 
   @override
-  String get settingsShippingSubtitle => 'Actualizaciones del tracker y aduana';
+  String get settingsShippingSubtitle => 'Tracker and customs updates';
 
   @override
-  String get settingsAccount => 'Cuenta';
+  String get settingsAccount => 'Account';
 
   @override
-  String get settingsProfile => 'Perfil';
+  String get settingsProfile => 'Profile';
 
   @override
-  String get settingsProfileSubtitle => 'Datos y preferencias de la cuenta';
+  String get settingsProfileSubtitle => 'Account data and preferences';
 
   @override
-  String get settingsPrivacy => 'Privacidad';
+  String get settingsPrivacy => 'Privacy';
 
   @override
-  String get settingsPrivacySubtitle => 'Control de datos y actividad';
+  String get settingsPrivacySubtitle => 'Data and activity control';
 
   @override
-  String get settingsEditProfile => 'Editar perfil';
+  String get settingsEditProfile => 'Edit profile';
 
   @override
-  String get errorGeneric => 'Ocurrió un error al cargar';
+  String get errorGeneric => 'An error occurred while loading';
 
   @override
   String get searchEmptyMessage =>
-      'No hay resultados aún. Prueba otra búsqueda o crea una alerta.';
+      'No results yet. Try another search or create an alert.';
 
   @override
-  String get trackingEmptyMessage => 'No hay eventos para este tracking';
+  String get trackingEmptyMessage => 'No events for this tracking';
 
   @override
-  String get trackingError => 'Ocurrió un error al cargar el tracking';
+  String get trackingError => 'Failed to load tracking';
 
   @override
-  String get trackingErrorInvalid => 'Ingresa un número válido';
+  String get trackingErrorInvalid => 'Enter a valid number';
 
   @override
-  String get communityError => 'Ocurrió un error al cargar la comunidad';
+  String get communityError => 'Failed to load community';
 
   @override
-  String get communityEmpty => 'No hay publicaciones aún';
+  String get communityEmpty => 'No posts yet';
 }

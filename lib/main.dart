@@ -1,24 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'app.dart';
 import 'core/services/environment.dart';
-import 'core/services/repositories.dart';
-import 'features/community/domain/community_repository.dart';
-import 'features/search/domain/search_repository.dart';
-import 'features/tracking/domain/tracking_repository.dart';
+import 'core/services/providers.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  const env = Environment.mock;
-  final repositories = buildRepositories(env);
+  // Select env via dart define: --dart-define=ENV=production
+  const envFlag = String.fromEnvironment('ENV', defaultValue: 'mock');
+  final env = envFlag.toLowerCase() == 'production'
+      ? Environment.production
+      : Environment.mock;
+
   runApp(
-    MultiProvider(
-      providers: [
-        Provider<SearchRepository>.value(value: repositories.search),
-        Provider<TrackingRepository>.value(value: repositories.tracking),
-        Provider<CommunityRepository>.value(value: repositories.community),
-      ],
+    ProviderScope(
+      overrides: buildOverrides(env: env),
       child: const ComprasEcApp(),
     ),
   );

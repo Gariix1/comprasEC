@@ -1,25 +1,18 @@
 import 'package:compras_ec/app.dart';
 import 'package:compras_ec/core/services/environment.dart';
-import 'package:compras_ec/core/services/repositories.dart';
-import 'package:compras_ec/features/community/domain/community_repository.dart';
-import 'package:compras_ec/features/search/domain/search_repository.dart';
-import 'package:compras_ec/features/tracking/domain/tracking_repository.dart';
+import 'package:compras_ec/core/services/providers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:provider/provider.dart';
 
 void main() {
   testWidgets('App renders navigation destinations without overflow', (tester) async {
-    final repos = buildRepositories(Environment.mock);
+    tester.binding.platformDispatcher.localesTestValue = const [Locale('es')];
 
     await tester.binding.setSurfaceSize(const Size(800, 1200));
     await tester.pumpWidget(
-      MultiProvider(
-        providers: [
-          Provider<SearchRepository>.value(value: repos.search),
-          Provider<TrackingRepository>.value(value: repos.tracking),
-          Provider<CommunityRepository>.value(value: repos.community),
-        ],
+      ProviderScope(
+        overrides: buildOverrides(env: Environment.mock),
         child: const ComprasEcApp(),
       ),
     );

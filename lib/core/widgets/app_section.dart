@@ -31,16 +31,16 @@ class AppSection extends StatelessWidget {
               const SizedBox(height: AppSpacing.xs),
               Align(alignment: Alignment.centerRight, child: action),
             ] else ...[
-              Row(
+              Wrap(
+                spacing: AppSpacing.xs,
+                runSpacing: AppSpacing.xs,
+                crossAxisAlignment: WrapCrossAlignment.center,
                 children: [
                   SectionTitle(title),
-                  const Spacer(),
                   if (action != null)
-                    Flexible(
-                      child: Align(
-                        alignment: Alignment.centerRight,
-                        child: action!,
-                      ),
+                    ConstrainedBox(
+                      constraints: const BoxConstraints(minWidth: 0, maxWidth: 240),
+                      child: action!,
                     ),
                 ],
               ),

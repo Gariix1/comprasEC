@@ -45,15 +45,33 @@ class AppPageScaffold extends StatelessWidget {
         );
 
     return AppBackground(
-      child: SafeArea(
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            final widthConstraint = (maxWidth == null || maxWidth == double.infinity)
-                ? constraints.maxWidth
-                : maxWidth!;
+      child: FocusTraversalGroup(
+        policy: WidgetOrderTraversalPolicy(),
+        child: SafeArea(
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              final widthConstraint = (maxWidth == null || maxWidth == double.infinity)
+                  ? constraints.maxWidth
+                  : maxWidth!;
 
-            if (!scrollable) {
-              return Padding(
+              if (!scrollable) {
+                return Padding(
+                  padding: effectivePadding,
+                  child: Align(
+                    alignment: alignment,
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(
+                        minWidth: widthConstraint,
+                        maxWidth: widthConstraint,
+                      ),
+                      child: child,
+                    ),
+                  ),
+                );
+              }
+
+              return SingleChildScrollView(
+                physics: physics,
                 padding: effectivePadding,
                 child: Align(
                   alignment: alignment,
@@ -66,23 +84,8 @@ class AppPageScaffold extends StatelessWidget {
                   ),
                 ),
               );
-            }
-
-            return SingleChildScrollView(
-              physics: physics,
-              padding: effectivePadding,
-              child: Align(
-                alignment: alignment,
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                    minWidth: widthConstraint,
-                    maxWidth: widthConstraint,
-                  ),
-                  child: child,
-                ),
-              ),
-            );
-          },
+            },
+          ),
         ),
       ),
     );

@@ -19,8 +19,10 @@ class ClearGlass extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
-    final base = scheme.surface.withOpacity(scheme.brightness == Brightness.dark ? 0.12 : 0.18);
-    final borderColor = scheme.onSurface.withOpacity(0.12);
+    // Slightly darker overlay to improve text/icon contrast on glass.
+    final base =
+        scheme.surface.withOpacity(scheme.brightness == Brightness.dark ? 0.24 : 0.26);
+    final borderColor = scheme.onSurface.withOpacity(0.16);
 
     return ClipRRect(
       borderRadius: borderRadius,

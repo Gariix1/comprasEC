@@ -18,11 +18,50 @@ class RepositoryContainer {
   final CommunityRepository community;
 }
 
-RepositoryContainer buildRepositories(Environment env) {
-  // For now only mocks; extend with real implementations per env.
+typedef SearchRepoBuilder = SearchRepository Function();
+typedef TrackingRepoBuilder = TrackingRepository Function();
+typedef CommunityRepoBuilder = CommunityRepository Function();
+
+/// Factories to allow overrides per environment (dev/prod) or tests.
+class RepositoryFactories {
+  RepositoryFactories({
+    required this.search,
+    required this.tracking,
+    required this.community,
+  });
+
+  final SearchRepoBuilder search;
+  final TrackingRepoBuilder tracking;
+  final CommunityRepoBuilder community;
+}
+
+RepositoryContainer buildRepositories(
+  Environment env, {
+  RepositoryFactories? overrides,
+}) {
+  final factories = overrides ?? _defaultFactoriesFor(env);
   return RepositoryContainer(
-    search: const MockSearchRepository(),
-    tracking: const MockTrackingRepository(),
-    community: const MockCommunityRepository(),
+    search: factories.search(),
+    tracking: factories.tracking(),
+    community: factories.community(),
   );
+}
+
+RepositoryFactories _defaultFactoriesFor(Environment env) {
+  switch (env) {
+    case Environment.production:
+      // TODO: reemplazar mocks por implementaciones reales (API/local) al conectar backend.
+      return RepositoryFactories(
+        search: () => const MockSearchRepository(),
+        tracking: () => const MockTrackingRepository(),
+        community: () => const MockCommunityRepository(),
+      );
+    case Environment.mock:
+    default:
+      return RepositoryFactories(
+        search: () => const MockSearchRepository(),
+        tracking: () => const MockTrackingRepository(),
+        community: () => const MockCommunityRepository(),
+      );
+  }
 }

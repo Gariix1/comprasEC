@@ -18,6 +18,13 @@ class ComprasEcApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
+      localeResolutionCallback: (locale, supported) {
+        if (locale == null) return supported.first;
+        return supported.firstWhere(
+          (l) => l.languageCode == locale.languageCode,
+          orElse: () => supported.first,
+        );
+      },
       theme: AppTheme.light(),
       darkTheme: AppTheme.dark(),
       themeMode: ThemeMode.system,
@@ -72,73 +79,111 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
     final l10n = AppLocalizations.of(context);
 
     if (wide) {
-      return Scaffold(
-        body: Row(
-          children: [
-            NavigationRail(
-              selectedIndex: currentIndex,
-              onDestinationSelected: _onTabSelected,
-              extended: isDesktop(context),
+      return FocusTraversalGroup(
+        policy: WidgetOrderTraversalPolicy(),
+        child: Scaffold(
+          body: Row(
+            children: [
+              NavigationRail(
+                selectedIndex: currentIndex,
+                onDestinationSelected: _onTabSelected,
+                extended: isDesktop(context),
               labelType: isTablet(context)
                   ? NavigationRailLabelType.selected
                   : NavigationRailLabelType.none,
               destinations: [
                 NavigationRailDestination(
-                  icon: const Icon(Icons.search),
+                  icon: Semantics(
+                    container: true,
+                    label: l10n?.navSearch ?? 'Buscar',
+                    child: const Icon(Icons.search),
+                  ),
                   label: Text(l10n?.navSearch ?? 'Buscar'),
                 ),
                 NavigationRailDestination(
-                  icon: const Icon(Icons.local_shipping_outlined),
+                  icon: Semantics(
+                    container: true,
+                    label: l10n?.navTracking ?? 'Tracker',
+                    child: const Icon(Icons.local_shipping_outlined),
+                  ),
                   label: Text(l10n?.navTracking ?? 'Tracker'),
                 ),
                 NavigationRailDestination(
-                  icon: const Icon(Icons.forum_outlined),
+                  icon: Semantics(
+                    container: true,
+                    label: l10n?.navCommunity ?? 'Comunidad',
+                    child: const Icon(Icons.forum_outlined),
+                  ),
                   label: Text(l10n?.navCommunity ?? 'Comunidad'),
                 ),
                 NavigationRailDestination(
-                  icon: const Icon(Icons.settings_outlined),
+                  icon: Semantics(
+                    container: true,
+                    label: l10n?.navSettings ?? 'Config',
+                    child: const Icon(Icons.settings_outlined),
+                  ),
                   label: Text(l10n?.navSettings ?? 'Config'),
                 ),
               ],
             ),
-            const VerticalDivider(width: 1),
-            Expanded(
-              child: IndexedStack(
-                index: currentIndex,
-                children: pages,
+              const VerticalDivider(width: 1),
+              Expanded(
+                child: IndexedStack(
+                  index: currentIndex,
+                  children: pages,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       );
     }
 
-    return Scaffold(
-      body: IndexedStack(
-        index: currentIndex,
-        children: pages,
-      ),
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: currentIndex,
-        onDestinationSelected: _onTabSelected,
-        destinations: [
-          NavigationDestination(
-            icon: const Icon(Icons.search),
-            label: l10n?.navSearch ?? 'Buscar',
-          ),
-          NavigationDestination(
-            icon: const Icon(Icons.local_shipping_outlined),
-            label: l10n?.navTracking ?? 'Tracker',
-          ),
-          NavigationDestination(
-            icon: const Icon(Icons.forum_outlined),
-            label: l10n?.navCommunity ?? 'Comunidad',
-          ),
-          NavigationDestination(
-            icon: const Icon(Icons.settings_outlined),
-            label: l10n?.navSettings ?? 'Config',
-          ),
-        ],
+    return FocusTraversalGroup(
+      policy: WidgetOrderTraversalPolicy(),
+      child: Scaffold(
+        body: IndexedStack(
+          index: currentIndex,
+          children: pages,
+        ),
+        bottomNavigationBar: NavigationBar(
+          selectedIndex: currentIndex,
+          onDestinationSelected: _onTabSelected,
+          destinations: [
+            NavigationDestination(
+              icon: Semantics(
+                container: true,
+                label: l10n?.navSearch ?? 'Buscar',
+                child: const Icon(Icons.search),
+              ),
+              label: l10n?.navSearch ?? 'Buscar',
+            ),
+            NavigationDestination(
+              icon: Semantics(
+                container: true,
+                label: l10n?.navTracking ?? 'Tracker',
+                child: const Icon(Icons.local_shipping_outlined),
+              ),
+              label: l10n?.navTracking ?? 'Tracker',
+            ),
+            NavigationDestination(
+              icon: Semantics(
+                container: true,
+                label: l10n?.navCommunity ?? 'Comunidad',
+                child: const Icon(Icons.forum_outlined),
+              ),
+              label: l10n?.navCommunity ?? 'Comunidad',
+            ),
+            NavigationDestination(
+              icon: Semantics(
+                container: true,
+                label: l10n?.navSettings ?? 'Config',
+                child: const Icon(Icons.settings_outlined),
+              ),
+              label: l10n?.navSettings ?? 'Config',
+            ),
+          ],
+        ),
       ),
     );
   }

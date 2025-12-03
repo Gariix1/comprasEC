@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:compras_ec/l10n/app_localizations.dart';
-import 'package:provider/provider.dart';
 
+import '../../../core/services/providers.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/utils/layout.dart';
 import '../../../core/widgets/app_action_bar.dart';
@@ -9,34 +10,31 @@ import '../../../core/widgets/app_button.dart';
 import '../../../core/widgets/app_empty_state.dart';
 import '../../../core/widgets/app_loading_overlay.dart';
 import '../../../core/widgets/app_page_scaffold.dart';
-import '../../../core/widgets/glass_surface.dart';
 import '../../../core/widgets/glass_text_field.dart';
 import '../../../core/widgets/section_card.dart';
 import '../domain/offer.dart';
-import '../domain/search_repository.dart';
 import 'widgets/offer_card.dart';
 
-class SearchPage extends StatefulWidget {
+class SearchPage extends ConsumerStatefulWidget {
   const SearchPage({super.key});
 
   @override
-  State<SearchPage> createState() => _SearchPageState();
+  ConsumerState<SearchPage> createState() => _SearchPageState();
 }
 
-class _SearchPageState extends State<SearchPage> {
-  Future<List<Offer>>? _offersFuture;
+class _SearchPageState extends ConsumerState<SearchPage> {
+  late Future<List<Offer>> _offersFuture;
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _offersFuture ??=
-        Provider.of<SearchRepository>(context, listen: false).fetchFeatured();
+  void initState() {
+    super.initState();
+    _offersFuture = ref.read(searchRepositoryProvider).fetchFeatured();
   }
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final future = _offersFuture!;
+    final future = _offersFuture;
     final delegate = cardGridDelegate(context);
     final maxWidth = maxContentWidth(context);
 

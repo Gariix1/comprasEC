@@ -25,13 +25,55 @@ class AppTheme {
       scaffoldBackgroundColor: Colors.transparent,
       appBarTheme: const AppBarTheme(centerTitle: false),
       textTheme: AppTypography.textTheme(scheme),
-      cardTheme: const CardThemeData(surfaceTintColor: Colors.transparent),
+      cardTheme: CardTheme(
+        elevation: 0,
+        surfaceTintColor: Colors.transparent,
+        color: scheme.surface,
+        shadowColor: scheme.shadow.withOpacity(0.3),
+        margin: EdgeInsets.zero,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        clipBehavior: Clip.antiAlias,
+      ),
+      pageTransitionsTheme: const PageTransitionsTheme(
+        builders: {
+          TargetPlatform.android: FadeThroughPageTransitionsBuilder(),
+          TargetPlatform.iOS: SharedAxisPageTransitionsBuilder(
+            transitionType: SharedAxisTransitionType.scaled,
+          ),
+          TargetPlatform.linux: FadeThroughPageTransitionsBuilder(),
+          TargetPlatform.macOS: FadeThroughPageTransitionsBuilder(),
+          TargetPlatform.windows: FadeThroughPageTransitionsBuilder(),
+        },
+      ),
       navigationBarTheme: NavigationBarThemeData(
         indicatorColor: scheme.primary.withOpacity(0.16),
         labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
       ),
-      inputDecorationTheme: const InputDecorationTheme(
-        border: InputBorder.none,
+      inputDecorationTheme: InputDecorationTheme(
+        isDense: true,
+        filled: true,
+        fillColor: scheme.surfaceVariant,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: BorderSide(color: scheme.outlineVariant),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: BorderSide(color: scheme.outlineVariant),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: BorderSide(color: scheme.primary),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: BorderSide(color: scheme.error),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: BorderSide(color: scheme.error),
+        ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(

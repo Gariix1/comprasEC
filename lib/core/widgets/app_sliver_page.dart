@@ -36,38 +36,41 @@ class AppSliverPage extends StatelessWidget {
         );
 
     return AppBackground(
-      child: SafeArea(
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            final extraHorizontal = maxWidth == null
-                ? 0.0
-                : max(0.0, (constraints.maxWidth - maxWidth!) / 2);
-            final effectivePadding = basePadding.copyWith(
-              left: basePadding.left + extraHorizontal,
-              right: basePadding.right + extraHorizontal,
-            );
+      child: FocusTraversalGroup(
+        policy: WidgetOrderTraversalPolicy(),
+        child: SafeArea(
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              final extraHorizontal = maxWidth == null
+                  ? 0.0
+                  : max(0.0, (constraints.maxWidth - maxWidth!) / 2);
+              final effectivePadding = basePadding.copyWith(
+                left: basePadding.left + extraHorizontal,
+                right: basePadding.right + extraHorizontal,
+              );
 
-            final paddedSlivers = [
-              if (header != null)
-                SliverPersistentHeader(
-                  pinned: pinnedHeader,
-                  delegate: _PinnedHeaderDelegate(
-                    extent: headerExtent,
+              final paddedSlivers = [
+                if (header != null)
+                  SliverPersistentHeader(
+                    pinned: pinnedHeader,
+                    delegate: _PinnedHeaderDelegate(
+                      extent: headerExtent,
+                      padding: effectivePadding,
+                      maxWidth: maxWidth,
+                      child: header!,
+                    ),
+                  ),
+                ...slivers.map(
+                  (sliver) => SliverPadding(
                     padding: effectivePadding,
-                    maxWidth: maxWidth,
-                    child: header!,
+                    sliver: sliver,
                   ),
                 ),
-              ...slivers.map(
-                (sliver) => SliverPadding(
-                  padding: effectivePadding,
-                  sliver: sliver,
-                ),
-              ),
-            ];
+              ];
 
-            return CustomScrollView(slivers: paddedSlivers);
-          },
+              return CustomScrollView(slivers: paddedSlivers);
+            },
+          ),
         ),
       ),
     );
