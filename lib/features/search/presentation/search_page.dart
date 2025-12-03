@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:compras_ec/l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/utils/layout.dart';
@@ -10,8 +12,8 @@ import '../../../core/widgets/app_page_scaffold.dart';
 import '../../../core/widgets/glass_surface.dart';
 import '../../../core/widgets/glass_text_field.dart';
 import '../../../core/widgets/section_card.dart';
-import '../../../core/services/repository_provider.dart';
 import '../domain/offer.dart';
+import '../domain/search_repository.dart';
 import 'widgets/offer_card.dart';
 
 class SearchPage extends StatefulWidget {
@@ -22,24 +24,26 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-  late Future<List<Offer>> _offersFuture;
+  Future<List<Offer>>? _offersFuture;
 
   @override
-  void initState() {
-    super.initState();
-    _offersFuture = RepositoryProvider.search.fetchFeatured();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _offersFuture ??=
+        Provider.of<SearchRepository>(context, listen: false).fetchFeatured();
   }
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final future = _offersFuture!;
     final delegate = cardGridDelegate(context);
     final maxWidth = maxContentWidth(context);
 
     return AppPageScaffold(
       maxWidth: maxWidth,
       child: FutureBuilder<List<Offer>>(
-        future: _offersFuture,
+        future: future,
         builder: (context, snapshot) {
           final loading = snapshot.connectionState == ConnectionState.waiting;
           final hasError = snapshot.hasError;
@@ -47,10 +51,10 @@ class _SearchPageState extends State<SearchPage> {
 
           return AppLoadingOverlay(
             loading: loading,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                GlassTextField(
+           child: Column(
+             crossAxisAlignment: CrossAxisAlignment.stretch,
+             children: [
+               GlassTextField(
                   label: l10n.searchPlaceholder,
                   hint: l10n.searchHint,
                   icon: Icons.search,

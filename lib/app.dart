@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:compras_ec/l10n/app_localizations.dart';
 
-import 'core/localization/strings.dart';
 import 'core/theme/app_theme.dart';
 import 'core/utils/layout.dart';
 import 'features/community/presentation/community_page.dart';
@@ -15,7 +14,7 @@ class ComprasEcApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Compras EC',
+      onGenerateTitle: (context) => AppLocalizations.of(context)?.appTitle ?? 'Compras EC',
       debugShowCheckedModeBanner: false,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
@@ -70,6 +69,7 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
     final currentIndex =
         _currentIndex >= pages.length ? pages.length - 1 : _currentIndex;
     final wide = !isMobile(context);
+    final l10n = AppLocalizations.of(context);
 
     if (wide) {
       return Scaffold(
@@ -82,22 +82,22 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
               labelType: isTablet(context)
                   ? NavigationRailLabelType.selected
                   : NavigationRailLabelType.none,
-              destinations: const [
+              destinations: [
                 NavigationRailDestination(
-                  icon: Icon(Icons.search),
-                  label: Text(Strings.navSearch),
+                  icon: const Icon(Icons.search),
+                  label: Text(l10n?.navSearch ?? 'Buscar'),
                 ),
                 NavigationRailDestination(
-                  icon: Icon(Icons.local_shipping_outlined),
-                  label: Text(Strings.navTracking),
+                  icon: const Icon(Icons.local_shipping_outlined),
+                  label: Text(l10n?.navTracking ?? 'Tracker'),
                 ),
                 NavigationRailDestination(
-                  icon: Icon(Icons.forum_outlined),
-                  label: Text(Strings.navCommunity),
+                  icon: const Icon(Icons.forum_outlined),
+                  label: Text(l10n?.navCommunity ?? 'Comunidad'),
                 ),
                 NavigationRailDestination(
-                  icon: Icon(Icons.settings_outlined),
-                  label: Text(Strings.navSettings),
+                  icon: const Icon(Icons.settings_outlined),
+                  label: Text(l10n?.navSettings ?? 'Config'),
                 ),
               ],
             ),
@@ -121,22 +121,22 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
       bottomNavigationBar: NavigationBar(
         selectedIndex: currentIndex,
         onDestinationSelected: _onTabSelected,
-        destinations: const [
+        destinations: [
           NavigationDestination(
-            icon: Icon(Icons.search),
-            label: Strings.navSearch,
+            icon: const Icon(Icons.search),
+            label: l10n?.navSearch ?? 'Buscar',
           ),
           NavigationDestination(
-            icon: Icon(Icons.local_shipping_outlined),
-            label: Strings.navTracking,
+            icon: const Icon(Icons.local_shipping_outlined),
+            label: l10n?.navTracking ?? 'Tracker',
           ),
           NavigationDestination(
-            icon: Icon(Icons.forum_outlined),
-            label: Strings.navCommunity,
+            icon: const Icon(Icons.forum_outlined),
+            label: l10n?.navCommunity ?? 'Comunidad',
           ),
           NavigationDestination(
-            icon: Icon(Icons.settings_outlined),
-            label: Strings.navSettings,
+            icon: const Icon(Icons.settings_outlined),
+            label: l10n?.navSettings ?? 'Config',
           ),
         ],
       ),

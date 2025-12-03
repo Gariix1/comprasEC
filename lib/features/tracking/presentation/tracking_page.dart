@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:compras_ec/l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
-import '../../../core/localization/strings.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/utils/layout.dart';
+import '../../../core/utils/validators.dart';
 import '../../../core/widgets/app_button.dart';
 import '../../../core/widgets/app_empty_state.dart';
 import '../../../core/widgets/app_loading_overlay.dart';
@@ -10,7 +12,8 @@ import '../../../core/widgets/app_page_scaffold.dart';
 import '../../../core/widgets/app_section.dart';
 import '../../../core/widgets/glass_form_text_field.dart';
 import '../../../core/widgets/glass_surface.dart';
-import '../../../core/services/repository_provider.dart';
+import '../domain/tracking_event.dart';
+import '../domain/tracking_repository.dart';
 import 'widgets/tracking_status_tile.dart';
 
 class TrackingPage extends StatefulWidget {
@@ -23,6 +26,7 @@ class TrackingPage extends StatefulWidget {
 class _TrackingPageState extends State<TrackingPage> {
   final TextEditingController _controller = TextEditingController();
   String? _error;
+  Future<List<TrackingEvent>>? _futureEvents;
 
   @override
   void dispose() {
@@ -32,68 +36,92 @@ class _TrackingPageState extends State<TrackingPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final maxWidth = maxContentWidth(context);
-    final trackingEvents = RepositoryProvider.tracking.fetchTrackingEvents(_controller.text);
+    final repo = context.read<TrackingRepository>();
+    _futureEvents ??= repo.fetchTrackingEvents(_controller.text);
+    final futureEvents = _futureEvents!;
     return AppPageScaffold(
       maxWidth: maxWidth,
-      child: Column(
-        children: [
-          GlassSurface(
-            maxWidth: maxWidth,
-            child: GlassFormTextField(
-              controller: _controller,
-              label: Strings.trackingNumber,
-              hint: Strings.trackingHint,
-              icon: Icons.local_shipping,
-              errorText: _error,
-            ),
-          ),
-          const SizedBox(height: AppSpacing.md),
-          AppLoadingOverlay(
-            loading: false,
-            child: GlassSurface(
-              maxWidth: maxWidth,
-              child: AppSection(
-                title: Strings.trackingTimeline,
-                spacing: AppSpacing.sm,
-                child: trackingEvents.isEmpty
-                    ? const AppEmptyState(
-                        title: Strings.trackingTimeline,
-                        message: 'No hay eventos para este tracking',
-                        icon: Icons.local_shipping_outlined,
-                      )
-                    : Column(
-                        children: [
-                          for (var i = 0; i < trackingEvents.length; i++) ...[
-                            TrackingStatusTile(
-                              icon: trackingEvents[i].icon,
-                              iconColor: trackingEvents[i].iconColor,
-                              title: trackingEvents[i].title,
-                              subtitle: trackingEvents[i].subtitle,
-                              trailing: trackingEvents[i].trailing,
-                            ),
-                            if (i != trackingEvents.length - 1)
-                              const SizedBox(height: AppSpacing.sm),
-                          ],
-                        ],
-                      ),
+      child: FutureBuilder<List<TrackingEvent>>(
+        future: futureEvents,
+        builder: (context, snapshot) {
+          final loading = snapshot.connectionState == ConnectionState.waiting;
+          final hasError = snapshot.hasError;
+          final events = snapshot.data ?? [];
+
+          return Column(
+            children: [
+              GlassSurface(
+                maxWidth: maxWidth,
+                child: GlassFormTextField(
+                  controller: _controller,
+                  label: l10n.trackingNumber,
+                  hint: l10n.trackingHint,
+                  icon: Icons.local_shipping,
+                  errorText: _error,
+                ),
               ),
-            ),
-          ),
-          const SizedBox(height: AppSpacing.md),
-          GlassSurface(
-            maxWidth: maxWidth,
-            child: AppButton.primary(
-              label: Strings.trackingRefresh,
-              icon: Icons.refresh,
-              onPressed: () {
-                setState(() {
-                  _error = _controller.text.isEmpty ? 'Ingresa un numero valido' : null;
-                });
-              },
-            ),
-          ),
-        ],
+              const SizedBox(height: AppSpacing.md),
+              AppLoadingOverlay(
+                loading: loading,
+                child: GlassSurface(
+                  maxWidth: maxWidth,
+                  child: AppSection(
+                    title: l10n.trackingTimeline,
+                    spacing: AppSpacing.sm,
+                    child: hasError
+                        ? AppEmptyState(
+                            title: l10n.trackingTimeline,
+                            message: l10n.trackingError,
+                            icon: Icons.error_outline,
+                          )
+                        : events.isEmpty
+                            ? AppEmptyState(
+                                title: l10n.trackingTimeline,
+                                message: l10n.trackingEmptyMessage,
+                                icon: Icons.local_shipping_outlined,
+                              )
+                            : Column(
+                                children: [
+                                  for (var i = 0; i < events.length; i++) ...[
+                                    TrackingStatusTile(
+                                      icon: events[i].icon,
+                                      iconColor: events[i].iconColor,
+                                      title: events[i].title,
+                                      subtitle: events[i].subtitle,
+                                      trailing: events[i].trailing,
+                                    ),
+                                    if (i != events.length - 1)
+                                      const SizedBox(height: AppSpacing.sm),
+                                  ],
+                                ],
+                              ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: AppSpacing.md),
+              GlassSurface(
+                maxWidth: maxWidth,
+                child: AppButton.primary(
+                  label: l10n.trackingRefresh,
+                  icon: Icons.refresh,
+                  onPressed: () {
+                    setState(() {
+                      _error = Validators.requiredField(
+                        _controller.text,
+                        message: l10n.trackingErrorInvalid,
+                      );
+                      if (_error == null) {
+                        _futureEvents = repo.fetchTrackingEvents(_controller.text);
+                      }
+                    });
+                  },
+                ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }

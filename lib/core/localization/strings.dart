@@ -43,4 +43,13 @@ class Strings {
   static const settingsPrivacy = 'Privacidad';
   static const settingsPrivacySubtitle = 'Control de datos y actividad';
   static const settingsEditProfile = 'Editar perfil';
+
+  // Errors / empty
+  static const errorGeneric = 'Ocurrio un error al cargar';
+  static const searchEmptyMessage = 'No hay resultados aún. Prueba otra busqueda o crea una alerta.';
+  static const trackingEmptyMessage = 'No hay eventos para este tracking';
+  static const trackingError = 'Ocurrio un error al cargar el tracking';
+  static const trackingErrorInvalid = 'Ingresa un numero valido';
+  static const communityError = 'Ocurrio un error al cargar la comunidad';
+  static const communityEmpty = 'No hay publicaciones aun';
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:compras_ec/l10n/app_localizations.dart';
 
-import '../../../core/localization/strings.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/utils/layout.dart';
 import '../../../core/widgets/app_button.dart';
@@ -13,6 +13,7 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final maxWidth = maxContentWidth(context);
 
     return AppPageScaffold(
@@ -21,42 +22,20 @@ class SettingsPage extends StatelessWidget {
         children: [
           GlassSurface(
             maxWidth: maxWidth,
-            child: const AppSection(
-              title: Strings.settingsAppearance,
+            child: AppSection(
+              title: l10n.settingsAppearance,
               spacing: AppSpacing.sm,
               child: Column(
                 children: [
                   _SettingTile(
                     icon: Icons.brightness_6_outlined,
-                    title: Strings.settingsTheme,
-                    subtitle: Strings.settingsThemeSubtitle,
+                    title: l10n.settingsTheme,
+                    subtitle: l10n.settingsThemeSubtitle,
                   ),
                   _SettingTile(
                     icon: Icons.color_lens_outlined,
-                    title: Strings.settingsAccent,
-                    subtitle: Strings.settingsAccentSubtitle,
-                  ),
-                ],
-              ),
-            ),
-          ),
-          const SizedBox(height: AppSpacing.sm),
-          GlassSurface(
-            maxWidth: maxWidth,
-            child: const AppSection(
-              title: Strings.settingsNotifications,
-              spacing: AppSpacing.sm,
-              child: Column(
-                children: [
-                  _SettingTile(
-                    icon: Icons.local_offer_outlined,
-                    title: Strings.settingsOffersAlerts,
-                    subtitle: Strings.settingsOffersSubtitle,
-                  ),
-                  _SettingTile(
-                    icon: Icons.local_shipping_outlined,
-                    title: Strings.settingsShippingAlerts,
-                    subtitle: Strings.settingsShippingSubtitle,
+                    title: l10n.settingsAccent,
+                    subtitle: l10n.settingsAccentSubtitle,
                   ),
                 ],
               ),
@@ -66,23 +45,45 @@ class SettingsPage extends StatelessWidget {
           GlassSurface(
             maxWidth: maxWidth,
             child: AppSection(
-              title: Strings.settingsAccount,
+              title: l10n.settingsNotifications,
               spacing: AppSpacing.sm,
-              action: const AppButton.secondary(
-                label: Strings.settingsEditProfile,
+              child: Column(
+                children: [
+                  _SettingTile(
+                    icon: Icons.local_offer_outlined,
+                    title: l10n.settingsOffersAlerts,
+                    subtitle: l10n.settingsOffersSubtitle,
+                  ),
+                  _SettingTile(
+                    icon: Icons.local_shipping_outlined,
+                    title: l10n.settingsShippingAlerts,
+                    subtitle: l10n.settingsShippingSubtitle,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: AppSpacing.sm),
+          GlassSurface(
+            maxWidth: maxWidth,
+            child: AppSection(
+              title: l10n.settingsAccount,
+              spacing: AppSpacing.sm,
+              action: AppButton.secondary(
+                label: l10n.settingsEditProfile,
                 icon: Icons.edit_outlined,
               ),
-              child: const Column(
+              child: Column(
                 children: [
                   _SettingTile(
                     icon: Icons.person_outline,
-                    title: Strings.settingsProfile,
-                    subtitle: Strings.settingsProfileSubtitle,
+                    title: l10n.settingsProfile,
+                    subtitle: l10n.settingsProfileSubtitle,
                   ),
                   _SettingTile(
                     icon: Icons.security_outlined,
-                    title: Strings.settingsPrivacy,
-                    subtitle: Strings.settingsPrivacySubtitle,
+                    title: l10n.settingsPrivacy,
+                    subtitle: l10n.settingsPrivacySubtitle,
                   ),
                 ],
               ),

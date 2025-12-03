@@ -23,17 +23,31 @@ class AppButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
-    final child = icon != null
+    final rawChild = icon != null
         ? Row(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(icon, size: 18),
               const SizedBox(width: 8),
-              Text(label),
+              Text(
+                label,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                softWrap: false,
+              ),
             ],
           )
-        : Text(label);
+        : Text(
+            label,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+            softWrap: false,
+          );
+    final child = FittedBox(
+      fit: BoxFit.scaleDown,
+      child: rawChild,
+    );
 
     switch (variant) {
       case _ButtonVariant.primary:

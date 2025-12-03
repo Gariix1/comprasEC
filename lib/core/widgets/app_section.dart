@@ -21,7 +21,7 @@ class AppSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final isCompact = constraints.maxWidth < 360 && action != null;
+        final isCompact = constraints.maxWidth < 480 && action != null;
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,

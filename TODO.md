@@ -41,11 +41,17 @@
 - [x] Tests adicionales: rail en desktop, layouts de grid en tablet/desktop, y validación de AppSection con acciones en pantallas estrechas.
 - [x] Componente de toast/snackbar reutilizable para feedback de usuario.
 - [x] Inline forms: validar `GlassFormTextField` con formularios (ej. nuevo tracking) y mostrar errores.
-- [ ] Migrar de `Strings` a `AppLocalizations` generadas con ARB (usar `flutter gen-l10n`), eliminar hardcodes y duplicados.
-- [ ] Sustituir `RepositoryProvider` estático por inyección (provider/riverpod/get_it) y repos async (contratos con Future) listos para datos reales.
-- [ ] Implementar flujos de loading/error/empty reales en Search/Tracker/Comunidad usando `AppLoadingOverlay`/`AppEmptyState` y repos async.
-- [ ] Mover textos embebidos en componentes (mensajes de empty, errores de tracking) a l10n.
-- [ ] Crear validadores/estado de formularios reutilizables para `GlassFormTextField` y aplicarlos en tracking u otros formularios.
-- [ ] Usar `SectionCard` de forma consistente en bloques (Search/Config/Tracker) para reducir composición manual.
-- [ ] Revisar `AppSliverPage`: aplicar maxWidth a slivers y soportar headers/pinning si se necesitan feeds más ricos.
-- [ ] Expandir tests: loading/empty en Search/Tracker, NavigationRail en desktop y barras de acción en anchos estrechos.
+- [x] Migrar de `Strings` a `AppLocalizations` generadas con ARB (usar `flutter gen-l10n`), eliminar hardcodes y duplicados.
+- [x] Sustituir `RepositoryProvider` estático por inyección (provider/riverpod/get_it) y repos async (contratos con Future) listos para datos reales.
+- [x] Implementar flujos de loading/error/empty reales en Search/Tracker/Comunidad usando `AppLoadingOverlay`/`AppEmptyState` y repos async.
+- [x] Mover textos embebidos en componentes (mensajes de empty, errores de tracking) a l10n.
+- [x] Crear validadores/estado de formularios reutilizables para `GlassFormTextField` y aplicarlos en tracking u otros formularios.
+- [x] Usar `SectionCard` de forma consistente en bloques (Search/Config/Tracker) para reducir composición manual.
+- [x] Revisar `AppSliverPage`: aplicar maxWidth a slivers y soportar headers/pinning si se necesitan feeds más ricos.
+- [ ] Expandir tests: loading/empty en Search/Tracker y barras de acción en anchos estrechos (nav rail ya cubierto).
+- [x] Plan de migración l10n + async estable:
+  - [x] Regenerar l10n con `flutter gen-l10n` (PowerShell) -> genera en `lib/l10n`.
+  - [x] Usar `package:compras_ec/l10n/app_localizations.dart` (synthetic-package deprecado).
+  - [x] Migrar Search/Tracker/Comunidad/Settings a `AppLocalizations` (reemplazar `Strings.*` y hardcodes).
+  - [x] Alinear mensajes de error/empty en l10n y `FutureBuilder` con repos async.
+  - [x] Actualizar tests por cambios de textos/l10n (providers y strings ajustados).

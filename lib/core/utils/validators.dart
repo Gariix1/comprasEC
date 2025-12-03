@@ -1,0 +1,8 @@
+class Validators {
+  const Validators._();
+
+  static String? requiredField(String? value, {String message = 'Campo obligatorio'}) {
+    if (value == null || value.trim().isEmpty) return message;
+    return null;
+  }
+}

@@ -48,7 +48,9 @@ class AppPageScaffold extends StatelessWidget {
       child: SafeArea(
         child: LayoutBuilder(
           builder: (context, constraints) {
-            final widthConstraint = maxWidth ?? constraints.maxWidth;
+            final widthConstraint = (maxWidth == null || maxWidth == double.infinity)
+                ? constraints.maxWidth
+                : maxWidth!;
 
             if (!scrollable) {
               return Padding(
@@ -56,7 +58,10 @@ class AppPageScaffold extends StatelessWidget {
                 child: Align(
                   alignment: alignment,
                   child: ConstrainedBox(
-                    constraints: BoxConstraints(maxWidth: widthConstraint),
+                    constraints: BoxConstraints(
+                      minWidth: widthConstraint,
+                      maxWidth: widthConstraint,
+                    ),
                     child: child,
                   ),
                 ),
@@ -70,6 +75,7 @@ class AppPageScaffold extends StatelessWidget {
                 alignment: alignment,
                 child: ConstrainedBox(
                   constraints: BoxConstraints(
+                    minWidth: widthConstraint,
                     maxWidth: widthConstraint,
                   ),
                   child: child,

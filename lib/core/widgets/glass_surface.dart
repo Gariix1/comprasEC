@@ -18,15 +18,26 @@ class GlassSurface extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.topCenter,
-      child: ConstrainedBox(
-        constraints: BoxConstraints(maxWidth: maxWidth ?? double.infinity),
-        child: GlassCard(
-          padding: padding,
-          child: child,
-        ),
-      ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final targetWidth = (maxWidth == null || maxWidth == double.infinity)
+            ? constraints.maxWidth
+            : maxWidth!;
+
+        return Align(
+          alignment: Alignment.topCenter,
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              minWidth: targetWidth,
+              maxWidth: targetWidth,
+            ),
+            child: GlassCard(
+              padding: padding,
+              child: child,
+            ),
+          ),
+        );
+      },
     );
   }
 }

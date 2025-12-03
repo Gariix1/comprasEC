@@ -103,4 +103,26 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get settingsEditProfile => 'Editar perfil';
+
+  @override
+  String get errorGeneric => 'Ocurrió un error al cargar';
+
+  @override
+  String get searchEmptyMessage =>
+      'No hay resultados aún. Prueba otra búsqueda o crea una alerta.';
+
+  @override
+  String get trackingEmptyMessage => 'No hay eventos para este tracking';
+
+  @override
+  String get trackingError => 'Ocurrió un error al cargar el tracking';
+
+  @override
+  String get trackingErrorInvalid => 'Ingresa un número válido';
+
+  @override
+  String get communityError => 'Ocurrió un error al cargar la comunidad';
+
+  @override
+  String get communityEmpty => 'No hay publicaciones aún';
 }

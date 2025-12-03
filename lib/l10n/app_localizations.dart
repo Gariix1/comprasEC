@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
+import 'app_localizations_en.dart';
 import 'app_localizations_es.dart';
 
 // ignore_for_file: type=lint
@@ -92,7 +93,10 @@ abstract class AppLocalizations {
       ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[Locale('es')];
+  static const List<Locale> supportedLocales = <Locale>[
+    Locale('es'),
+    Locale('en'),
+  ];
 
   /// No description provided for @appTitle.
   ///
@@ -285,6 +289,48 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Editar perfil'**
   String get settingsEditProfile;
+
+  /// No description provided for @errorGeneric.
+  ///
+  /// In es, this message translates to:
+  /// **'Ocurrió un error al cargar'**
+  String get errorGeneric;
+
+  /// No description provided for @searchEmptyMessage.
+  ///
+  /// In es, this message translates to:
+  /// **'No hay resultados aún. Prueba otra búsqueda o crea una alerta.'**
+  String get searchEmptyMessage;
+
+  /// No description provided for @trackingEmptyMessage.
+  ///
+  /// In es, this message translates to:
+  /// **'No hay eventos para este tracking'**
+  String get trackingEmptyMessage;
+
+  /// No description provided for @trackingError.
+  ///
+  /// In es, this message translates to:
+  /// **'Ocurrió un error al cargar el tracking'**
+  String get trackingError;
+
+  /// No description provided for @trackingErrorInvalid.
+  ///
+  /// In es, this message translates to:
+  /// **'Ingresa un número válido'**
+  String get trackingErrorInvalid;
+
+  /// No description provided for @communityError.
+  ///
+  /// In es, this message translates to:
+  /// **'Ocurrió un error al cargar la comunidad'**
+  String get communityError;
+
+  /// No description provided for @communityEmpty.
+  ///
+  /// In es, this message translates to:
+  /// **'No hay publicaciones aún'**
+  String get communityEmpty;
 }
 
 class _AppLocalizationsDelegate
@@ -298,7 +344,7 @@ class _AppLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      <String>['es'].contains(locale.languageCode);
+      <String>['en', 'es'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -307,6 +353,8 @@ class _AppLocalizationsDelegate
 AppLocalizations lookupAppLocalizations(Locale locale) {
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
+    case 'en':
+      return AppLocalizationsEn();
     case 'es':
       return AppLocalizationsEs();
   }
