@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/localization/strings.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/utils/layout.dart';
-import '../../../core/widgets/app_page_scaffold.dart';
+import '../../../core/services/repository_provider.dart';
+import '../../../core/widgets/app_sliver_page.dart';
 import '../../../core/widgets/section_card.dart';
-import '../data/mock_posts.dart';
 import 'widgets/post_card.dart';
 
 class CommunityPage extends StatelessWidget {
@@ -13,29 +14,34 @@ class CommunityPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final maxWidth = maxContentWidth(context);
+    final posts = RepositoryProvider.community.fetchFeed();
 
-    return AppPageScaffold(
+    return AppSliverPage(
       maxWidth: maxWidth,
-      child: SectionCard(
-        maxWidth: maxWidth,
-        title: 'Comunidad',
-        spacing: AppSpacing.sm,
-        child: Column(
-          children: mockPosts
-              .map(
-                (post) => Padding(
-                  padding: const EdgeInsets.only(bottom: AppSpacing.sm),
-                  child: PostCard(
-                    author: post.author,
-                    likes: post.likes,
-                    content: post.content,
-                    tags: post.tags,
-                  ),
-                ),
-              )
-              .toList(),
+      slivers: [
+        SliverToBoxAdapter(
+          child: SectionCard(
+            maxWidth: maxWidth,
+            title: Strings.communityTitle,
+            spacing: AppSpacing.sm,
+            child: Column(
+              children: posts
+                  .map(
+                    (post) => Padding(
+                      padding: const EdgeInsets.only(bottom: AppSpacing.sm),
+                      child: PostCard(
+                        author: post.author,
+                        likes: post.likes,
+                        content: post.content,
+                        tags: post.tags,
+                      ),
+                    ),
+                  )
+                  .toList(),
+            ),
+          ),
         ),
-      ),
+      ],
     );
   }
 }

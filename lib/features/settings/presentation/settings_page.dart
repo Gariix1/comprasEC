@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/localization/strings.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/utils/layout.dart';
 import '../../../core/widgets/app_button.dart';
@@ -21,19 +22,19 @@ class SettingsPage extends StatelessWidget {
           GlassSurface(
             maxWidth: maxWidth,
             child: const AppSection(
-              title: 'Apariencia',
+              title: Strings.settingsAppearance,
               spacing: AppSpacing.sm,
               child: Column(
                 children: [
                   _SettingTile(
                     icon: Icons.brightness_6_outlined,
-                    title: 'Tema',
-                    subtitle: 'Claro / Oscuro / Sistema',
+                    title: Strings.settingsTheme,
+                    subtitle: Strings.settingsThemeSubtitle,
                   ),
                   _SettingTile(
                     icon: Icons.color_lens_outlined,
-                    title: 'Acento de color',
-                    subtitle: 'Verde (predeterminado)',
+                    title: Strings.settingsAccent,
+                    subtitle: Strings.settingsAccentSubtitle,
                   ),
                 ],
               ),
@@ -43,19 +44,19 @@ class SettingsPage extends StatelessWidget {
           GlassSurface(
             maxWidth: maxWidth,
             child: const AppSection(
-              title: 'Notificaciones',
+              title: Strings.settingsNotifications,
               spacing: AppSpacing.sm,
               child: Column(
                 children: [
                   _SettingTile(
                     icon: Icons.local_offer_outlined,
-                    title: 'Alertas de ofertas',
-                    subtitle: 'Cambios de precio y ofertas destacadas',
+                    title: Strings.settingsOffersAlerts,
+                    subtitle: Strings.settingsOffersSubtitle,
                   ),
                   _SettingTile(
                     icon: Icons.local_shipping_outlined,
-                    title: 'Estados de envío',
-                    subtitle: 'Actualizaciones del tracker y aduana',
+                    title: Strings.settingsShippingAlerts,
+                    subtitle: Strings.settingsShippingSubtitle,
                   ),
                 ],
               ),
@@ -65,23 +66,23 @@ class SettingsPage extends StatelessWidget {
           GlassSurface(
             maxWidth: maxWidth,
             child: AppSection(
-              title: 'Cuenta',
+              title: Strings.settingsAccount,
               spacing: AppSpacing.sm,
               action: const AppButton.secondary(
-                label: 'Editar perfil',
+                label: Strings.settingsEditProfile,
                 icon: Icons.edit_outlined,
               ),
               child: const Column(
                 children: [
                   _SettingTile(
                     icon: Icons.person_outline,
-                    title: 'Perfil',
-                    subtitle: 'Datos y preferencias de la cuenta',
+                    title: Strings.settingsProfile,
+                    subtitle: Strings.settingsProfileSubtitle,
                   ),
                   _SettingTile(
                     icon: Icons.security_outlined,
-                    title: 'Privacidad',
-                    subtitle: 'Control de datos y actividad',
+                    title: Strings.settingsPrivacy,
+                    subtitle: Strings.settingsPrivacySubtitle,
                   ),
                 ],
               ),

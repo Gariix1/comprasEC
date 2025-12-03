@@ -27,3 +27,25 @@
 - [x] Crear `SectionCard` que combine `GlassSurface + AppSection` para reducir composición repetida.
 - [x] Definir barra de acciones reutilizable (CTAs, filtros/alertas) usando `AppButton` cuando haya múltiples acciones en una sección.
 - [x] Centralizar configuración de grillas (columnas y `childAspectRatio`) en helper si se repite entre Search/Comunidad.
+- [x] Añadir estados reutilizables (`AppEmptyState`, `AppLoadingOverlay`) para listas/formularios.
+- [x] Crear `GlassFormTextField` con soporte de error/ayuda para futuros formularios.
+- [x] Repositorios/mock providers por feature para preparar capas domain/data.
+- [x] Optimizar listas largas con `AppSliverPage` cuando haya feeds extensos (usado en Comunidad).
+- [x] Inyección de dependencias para repos (mocks desde capa de presentación via `RepositoryProvider`).
+- [x] Centralizar strings (l10n o recurso compartido) para evitar hardcodes y preparar traducciones.
+- [x] Ajustar `AppSliverPage` para aplicar `maxWidth`/constraints a slivers y usarlo en feeds cuando correspondan.
+- [x] Tests mínimos de widgets (navegación y componentes clave) para validar layout sin overflows.
+- [x] Extender DI para datos reales (sustituir mocks), incluyendo configuración de entorno y factories.
+- [x] Incorporar l10n real con ARB y `flutter gen-l10n`.
+- [x] Añadir estados de error/loading/empty integrados en cada feature (usar `AppEmptyState`/`AppLoadingOverlay`).
+- [x] Tests adicionales: rail en desktop, layouts de grid en tablet/desktop, y validación de AppSection con acciones en pantallas estrechas.
+- [x] Componente de toast/snackbar reutilizable para feedback de usuario.
+- [x] Inline forms: validar `GlassFormTextField` con formularios (ej. nuevo tracking) y mostrar errores.
+- [ ] Migrar de `Strings` a `AppLocalizations` generadas con ARB (usar `flutter gen-l10n`), eliminar hardcodes y duplicados.
+- [ ] Sustituir `RepositoryProvider` estático por inyección (provider/riverpod/get_it) y repos async (contratos con Future) listos para datos reales.
+- [ ] Implementar flujos de loading/error/empty reales en Search/Tracker/Comunidad usando `AppLoadingOverlay`/`AppEmptyState` y repos async.
+- [ ] Mover textos embebidos en componentes (mensajes de empty, errores de tracking) a l10n.
+- [ ] Crear validadores/estado de formularios reutilizables para `GlassFormTextField` y aplicarlos en tracking u otros formularios.
+- [ ] Usar `SectionCard` de forma consistente en bloques (Search/Config/Tracker) para reducir composición manual.
+- [ ] Revisar `AppSliverPage`: aplicar maxWidth a slivers y soportar headers/pinning si se necesitan feeds más ricos.
+- [ ] Expandir tests: loading/empty en Search/Tracker, NavigationRail en desktop y barras de acción en anchos estrechos.

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
+import 'core/localization/strings.dart';
 import 'core/theme/app_theme.dart';
 import 'core/utils/layout.dart';
 import 'features/community/presentation/community_page.dart';
@@ -15,6 +17,14 @@ class ComprasEcApp extends StatelessWidget {
     return MaterialApp(
       title: 'Compras EC',
       debugShowCheckedModeBanner: false,
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('es'),
+      ],
       theme: AppTheme.light(),
       darkTheme: AppTheme.dark(),
       themeMode: ThemeMode.system,
@@ -81,19 +91,19 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
               destinations: const [
                 NavigationRailDestination(
                   icon: Icon(Icons.search),
-                  label: Text('Buscar'),
+                  label: Text(Strings.navSearch),
                 ),
                 NavigationRailDestination(
                   icon: Icon(Icons.local_shipping_outlined),
-                  label: Text('Tracker'),
+                  label: Text(Strings.navTracking),
                 ),
                 NavigationRailDestination(
                   icon: Icon(Icons.forum_outlined),
-                  label: Text('Comunidad'),
+                  label: Text(Strings.navCommunity),
                 ),
                 NavigationRailDestination(
                   icon: Icon(Icons.settings_outlined),
-                  label: Text('Config'),
+                  label: Text(Strings.navSettings),
                 ),
               ],
             ),
@@ -120,19 +130,19 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
         destinations: const [
           NavigationDestination(
             icon: Icon(Icons.search),
-            label: 'Buscar',
+            label: Strings.navSearch,
           ),
           NavigationDestination(
             icon: Icon(Icons.local_shipping_outlined),
-            label: 'Tracker',
+            label: Strings.navTracking,
           ),
           NavigationDestination(
             icon: Icon(Icons.forum_outlined),
-            label: 'Comunidad',
+            label: Strings.navCommunity,
           ),
           NavigationDestination(
             icon: Icon(Icons.settings_outlined),
-            label: 'Config',
+            label: Strings.navSettings,
           ),
         ],
       ),

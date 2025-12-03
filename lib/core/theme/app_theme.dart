@@ -28,7 +28,7 @@ class AppTheme {
       cardTheme: const CardThemeData(surfaceTintColor: Colors.transparent),
       navigationBarTheme: NavigationBarThemeData(
         indicatorColor: scheme.primary.withOpacity(0.16),
-        labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+        labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
       ),
       inputDecorationTheme: const InputDecorationTheme(
         border: InputBorder.none,
