@@ -23,17 +23,6 @@ class _EmptySearchRepository implements SearchRepository {
   Future<List<Offer>> fetchFeatured() async => [];
 }
 
-class _SingleSearchRepository implements SearchRepository {
-  @override
-  Future<List<Offer>> fetchFeatured() async => const [
-        Offer(
-          title: 'Producto de prueba',
-          marketplaces: 'Test',
-          price: '\$10',
-        ),
-      ];
-}
-
 Widget _buildSearchPage(SearchRepository repo) {
   return ProviderScope(
     overrides: [

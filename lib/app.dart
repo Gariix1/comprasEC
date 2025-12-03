@@ -135,10 +135,7 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
                     icon: Semantics(
                       container: true,
                       label: l10n?.navTracking ?? 'Tracker',
-                      child: BouncyIcon(
-                        icon: Icons.local_shipping_outlined,
-                        isSelected: currentIndex == 0,
-                      ),
+                      child: const Icon(Icons.local_shipping_outlined),
                     ),
                     label: Text(l10n?.navTracking ?? 'Tracker'),
                   ),
@@ -146,10 +143,7 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
                     icon: Semantics(
                       container: true,
                       label: l10n?.navServices ?? 'Servicios',
-                      child: BouncyIcon(
-                        icon: Icons.link_outlined,
-                        isSelected: currentIndex == 1,
-                      ),
+                      child: const Icon(Icons.link_outlined),
                     ),
                     label: Text(l10n?.navServices ?? 'Servicios'),
                   ),
@@ -157,10 +151,7 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
                     icon: Semantics(
                       container: true,
                       label: l10n?.navSearch ?? 'Buscar',
-                      child: BouncyIcon(
-                        icon: Icons.search,
-                        isSelected: currentIndex == 2,
-                      ),
+                      child: const Icon(Icons.search),
                     ),
                     label: Text(l10n?.navSearch ?? 'Buscar'),
                   ),
@@ -168,10 +159,7 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
                     icon: Semantics(
                       container: true,
                       label: l10n?.navCommunity ?? 'Comunidad',
-                      child: BouncyIcon(
-                        icon: Icons.forum_outlined,
-                        isSelected: currentIndex == 3,
-                      ),
+                      child: const Icon(Icons.forum_outlined),
                     ),
                     label: Text(l10n?.navCommunity ?? 'Comunidad'),
                   ),
@@ -179,10 +167,7 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
                     icon: Semantics(
                       container: true,
                       label: l10n?.navSettings ?? 'Config',
-                      child: BouncyIcon(
-                        icon: Icons.settings_outlined,
-                        isSelected: currentIndex == 4,
-                      ),
+                      child: const Icon(Icons.settings_outlined),
                     ),
                     label: Text(l10n?.navSettings ?? 'Config'),
                   ),
@@ -210,10 +195,7 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
               icon: Semantics(
                 container: true,
                 label: l10n?.navTracking ?? 'Tracker',
-                child: BouncyIcon(
-                  icon: Icons.local_shipping_outlined,
-                  isSelected: currentIndex == 0,
-                ),
+                child: const Icon(Icons.local_shipping_outlined),
               ),
               label: l10n?.navTracking ?? 'Tracker',
             ),
@@ -221,10 +203,7 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
               icon: Semantics(
                 container: true,
                 label: l10n?.navServices ?? 'Servicios',
-                child: BouncyIcon(
-                  icon: Icons.link_outlined,
-                  isSelected: currentIndex == 1,
-                ),
+                child: const Icon(Icons.link_outlined),
               ),
               label: l10n?.navServices ?? 'Servicios',
             ),
@@ -232,10 +211,7 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
               icon: Semantics(
                 container: true,
                 label: l10n?.navSearch ?? 'Buscar',
-                child: BouncyIcon(
-                  icon: Icons.search,
-                  isSelected: currentIndex == 2,
-                ),
+                child: const Icon(Icons.search),
               ),
               label: l10n?.navSearch ?? 'Buscar',
             ),
@@ -243,10 +219,7 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
               icon: Semantics(
                 container: true,
                 label: l10n?.navCommunity ?? 'Comunidad',
-                child: BouncyIcon(
-                  icon: Icons.forum_outlined,
-                  isSelected: currentIndex == 3,
-                ),
+                child: const Icon(Icons.forum_outlined),
               ),
               label: l10n?.navCommunity ?? 'Comunidad',
             ),
@@ -254,10 +227,7 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
               icon: Semantics(
                 container: true,
                 label: l10n?.navSettings ?? 'Config',
-                child: BouncyIcon(
-                  icon: Icons.settings_outlined,
-                  isSelected: currentIndex == 4,
-                ),
+                child: const Icon(Icons.settings_outlined),
               ),
               label: l10n?.navSettings ?? 'Config',
             ),

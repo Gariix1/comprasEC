@@ -22,13 +22,16 @@ class AppTheme {
       useMaterial3: true,
       colorScheme: scheme,
       scaffoldBackgroundColor: Colors.transparent,
+      splashFactory: InkRipple.splashFactory,
       appBarTheme: const AppBarTheme(centerTitle: false),
       textTheme: AppTypography.textTheme(scheme),
       cardTheme: CardThemeData(
         elevation: 4,
         surfaceTintColor: scheme.surfaceTint,
         color: scheme.surface,
-        shadowColor: scheme.shadow.withOpacity(0.2),
+        shadowColor: scheme.shadow.withValues(
+          alpha: scheme.shadow.a * 255.0 * 0.2,
+        ),
         margin: EdgeInsets.zero,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
         clipBehavior: Clip.antiAlias,
@@ -38,7 +41,9 @@ class AppTheme {
         surfaceTintColor: scheme.surfaceTint,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         showDragHandle: true,
-        dragHandleColor: scheme.onSurfaceVariant.withOpacity(0.6),
+        dragHandleColor: scheme.onSurfaceVariant.withValues(
+          alpha: scheme.onSurfaceVariant.a * 255.0 * 0.6,
+        ),
       ),
       dialogTheme: DialogThemeData(
         backgroundColor: scheme.surface,
@@ -47,8 +52,41 @@ class AppTheme {
       ),
       navigationBarTheme: NavigationBarThemeData(
         backgroundColor: scheme.surface,
-        indicatorColor: scheme.primary.withOpacity(0.16),
+        indicatorColor: scheme.primary.withValues(
+          alpha: scheme.primary.a * 255.0 * 0.16,
+        ),
         labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+        iconTheme: WidgetStateProperty.resolveWith(
+          (states) {
+            final selected = states.contains(WidgetState.selected);
+            return IconThemeData(
+              color: selected ? scheme.onPrimary : scheme.onSurfaceVariant,
+            );
+          },
+        ),
+        labelTextStyle: WidgetStateProperty.resolveWith(
+          (states) {
+            return TextStyle(
+              color: scheme.onSurfaceVariant,
+            );
+          },
+        ),
+        overlayColor: WidgetStateProperty.resolveWith(
+          (states) {
+            if (states.contains(WidgetState.pressed)) {
+              return scheme.primary.withValues(
+                alpha: scheme.primary.a * 255.0 * 0.14,
+              );
+            }
+            if (states.contains(WidgetState.hovered) ||
+                states.contains(WidgetState.focused)) {
+              return scheme.primary.withValues(
+                alpha: scheme.primary.a * 255.0 * 0.08,
+              );
+            }
+            return null;
+          },
+        ),
       ),
       pageTransitionsTheme: const PageTransitionsTheme(
         builders: {
@@ -64,7 +102,7 @@ class AppTheme {
       inputDecorationTheme: InputDecorationTheme(
         isDense: true,
         filled: true,
-        fillColor: scheme.surfaceVariant,
+        fillColor: scheme.surfaceContainerHighest,
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),

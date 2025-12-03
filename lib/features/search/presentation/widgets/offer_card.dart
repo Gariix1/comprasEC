@@ -49,7 +49,9 @@ class OfferCard extends StatelessWidget {
                     Text(
                       marketplaces,
                       style: theme.textTheme.bodyMedium?.copyWith(
-                        color: theme.textTheme.bodyMedium?.color?.withOpacity(0.8),
+                        color: theme.textTheme.bodyMedium?.color?.withValues(
+                          alpha: (theme.textTheme.bodyMedium?.color?.a ?? 1.0) * 255.0 * 0.8,
+                        ),
                       ),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,

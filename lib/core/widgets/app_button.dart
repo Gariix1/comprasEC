@@ -6,19 +6,19 @@ class AppButton extends StatelessWidget {
     required this.label,
     this.onPressed,
     this.icon,
-  }) : variant = _ButtonVariant.primary;
+  }) : variant = ButtonVariant.primary;
 
   const AppButton.secondary({
     super.key,
     required this.label,
     this.onPressed,
     this.icon,
-  }) : variant = _ButtonVariant.secondary;
+  }) : variant = ButtonVariant.secondary;
 
   final String label;
   final VoidCallback? onPressed;
   final IconData? icon;
-  final _ButtonVariant variant;
+  final ButtonVariant variant;
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +50,7 @@ class AppButton extends StatelessWidget {
     );
 
     switch (variant) {
-      case _ButtonVariant.primary:
+      case ButtonVariant.primary:
         return FilledButton(
           onPressed: onPressed,
           style: FilledButton.styleFrom(
@@ -61,7 +61,7 @@ class AppButton extends StatelessWidget {
           ),
           child: child,
         );
-      case _ButtonVariant.secondary:
+      case ButtonVariant.secondary:
         return OutlinedButton(
           onPressed: onPressed,
           style: OutlinedButton.styleFrom(
@@ -69,7 +69,7 @@ class AppButton extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-            side: BorderSide(color: scheme.primary.withOpacity(0.6)),
+            side: BorderSide(color: scheme.primary.withValues(alpha: scheme.primary.a * 255.0 * 0.6)),
           ),
           child: child,
         );
@@ -77,4 +77,4 @@ class AppButton extends StatelessWidget {
   }
 }
 
-enum _ButtonVariant { primary, secondary }
+enum ButtonVariant { primary, secondary }

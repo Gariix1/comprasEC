@@ -22,9 +22,9 @@ class ClearGlass extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final base = scheme.brightness == Brightness.dark
-        ? AppPalette.glassDark.withOpacity(0.30)
-        : AppPalette.glassLight.withOpacity(0.28);
-    final borderColor = scheme.onSurface.withOpacity(0.14);
+        ? AppPalette.glassDark.withValues(alpha: AppPalette.glassDark.a * 255.0 * 0.30)
+        : AppPalette.glassLight.withValues(alpha: AppPalette.glassLight.a * 255.0 * 0.28);
+    final borderColor = scheme.onSurface.withValues(alpha: scheme.onSurface.a * 255.0 * 0.14);
 
     return ClipRRect(
       borderRadius: borderRadius,

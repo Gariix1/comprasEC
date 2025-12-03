@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+// ignore_for_file: deprecated_member_use
+
 import 'package:compras_ec/l10n/app_localizations.dart';
 
 import '../../../core/theme/app_spacing.dart';
@@ -85,18 +87,6 @@ class SettingsPage extends ConsumerWidget {
           SectionListBlock(
             maxWidth: maxWidth,
             title: l10n.settingsNotifications,
-            children: [
-              AppListTile(
-                icon: Icons.local_offer_outlined,
-                title: l10n.settingsOffersAlerts,
-                subtitle: l10n.settingsOffersSubtitle,
-              ),
-              AppListTile(
-                icon: Icons.local_shipping_outlined,
-                title: l10n.settingsShippingAlerts,
-                subtitle: l10n.settingsShippingSubtitle,
-              ),
-            ],
             action: Wrap(
               spacing: AppSpacing.xs,
               children: [
@@ -110,6 +100,18 @@ class SettingsPage extends ConsumerWidget {
                 ),
               ],
             ),
+            children: [
+              AppListTile(
+                icon: Icons.local_offer_outlined,
+                title: l10n.settingsOffersAlerts,
+                subtitle: l10n.settingsOffersSubtitle,
+              ),
+              AppListTile(
+                icon: Icons.local_shipping_outlined,
+                title: l10n.settingsShippingAlerts,
+                subtitle: l10n.settingsShippingSubtitle,
+              ),
+            ],
           ),
           const SizedBox(height: AppSpacing.sm),
           SectionListBlock(

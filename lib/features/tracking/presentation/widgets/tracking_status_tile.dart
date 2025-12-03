@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/theme/app_spacing.dart';
-
 class TrackingStatusTile extends StatelessWidget {
   const TrackingStatusTile({
     super.key,
@@ -30,11 +28,7 @@ class TrackingStatusTile extends StatelessWidget {
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
         ),
-        subtitle: Text(
-          subtitle,
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-        ),
+        subtitle: Text(subtitle, maxLines: 2, overflow: TextOverflow.ellipsis),
         trailing: Text(
           trailing,
           style: Theme.of(context).textTheme.bodySmall,

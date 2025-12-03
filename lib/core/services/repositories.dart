@@ -57,7 +57,6 @@ RepositoryFactories _defaultFactoriesFor(Environment env) {
         community: () => const MockCommunityRepository(),
       );
     case Environment.mock:
-    default:
       return RepositoryFactories(
         search: () => const MockSearchRepository(),
         tracking: () => const MockTrackingRepository(),

@@ -11,7 +11,6 @@ import '../../../core/widgets/app_button.dart';
 import '../../../core/widgets/app_empty_state.dart';
 import '../../../core/widgets/app_loading_overlay.dart';
 import '../../../core/widgets/app_page_scaffold.dart';
-import '../../../core/widgets/app_section.dart';
 import '../domain/tracking_event.dart';
 import 'widgets/tracking_status_tile.dart';
 
@@ -73,15 +72,19 @@ class _TrackingPageState extends ConsumerState<TrackingPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(l10n.trackingTimeline, style: Theme.of(context).textTheme.titleMedium),
+                      Text(
+                        l10n.trackingTimeline,
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
                       const SizedBox(height: AppSpacing.sm),
                       AnimatedSwitcher(
                         duration: const Duration(milliseconds: 220),
-                        transitionBuilder: (child, animation) => FadeThroughTransition(
-                          animation: animation,
-                          secondaryAnimation: animation,
-                          child: child,
-                        ),
+                        transitionBuilder: (child, animation) =>
+                            FadeThroughTransition(
+                              animation: animation,
+                              secondaryAnimation: animation,
+                              child: child,
+                            ),
                         child: hasError
                             ? AppEmptyState(
                                 key: const ValueKey('tracking-error'),
@@ -90,28 +93,28 @@ class _TrackingPageState extends ConsumerState<TrackingPage> {
                                 icon: Icons.error_outline,
                               )
                             : events.isEmpty
-                                ? AppEmptyState(
-                                    key: const ValueKey('tracking-empty'),
-                                    title: l10n.trackingTimeline,
-                                    message: l10n.trackingEmptyMessage,
-                                    icon: Icons.local_shipping_outlined,
-                                  )
-                                : Column(
-                                    key: const ValueKey('tracking-data'),
-                                    children: [
-                                      for (var i = 0; i < events.length; i++) ...[
-                                        TrackingStatusTile(
-                                          icon: events[i].icon,
-                                          iconColor: events[i].iconColor,
-                                          title: events[i].title,
-                                          subtitle: events[i].subtitle,
-                                          trailing: events[i].trailing,
-                                        ),
-                                        if (i != events.length - 1)
-                                          const SizedBox(height: AppSpacing.sm),
-                                      ],
-                                    ],
-                                  ),
+                            ? AppEmptyState(
+                                key: const ValueKey('tracking-empty'),
+                                title: l10n.trackingTimeline,
+                                message: l10n.trackingEmptyMessage,
+                                icon: Icons.local_shipping_outlined,
+                              )
+                            : Column(
+                                key: const ValueKey('tracking-data'),
+                                children: [
+                                  for (var i = 0; i < events.length; i++) ...[
+                                    TrackingStatusTile(
+                                      icon: events[i].icon,
+                                      iconColor: events[i].iconColor,
+                                      title: events[i].title,
+                                      subtitle: events[i].subtitle,
+                                      trailing: events[i].trailing,
+                                    ),
+                                    if (i != events.length - 1)
+                                      const SizedBox(height: AppSpacing.sm),
+                                  ],
+                                ],
+                              ),
                       ),
                     ],
                   ),
@@ -128,10 +131,9 @@ class _TrackingPageState extends ConsumerState<TrackingPage> {
                       message: l10n.trackingErrorInvalid,
                     );
                     if (_error == null) {
-                      _futureEvents =
-                          ref.read(trackingRepositoryProvider).fetchTrackingEvents(
-                                _controller.text,
-                              );
+                      _futureEvents = ref
+                          .read(trackingRepositoryProvider)
+                          .fetchTrackingEvents(_controller.text);
                     }
                   });
                 },
